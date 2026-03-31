@@ -8,15 +8,33 @@ interface Props {
   description: string;
   lang: 'fr' | 'en';
   ogImage?: string;
+  /** Set true on pages that start with a full-screen hero (header floats over it) */
+  heroPage?: boolean;
 }
 
-const { title, description, lang, ogImage } = Astro.props;
+const { title, description, lang, ogImage, heroPage = false } = Astro.props;
 ---
 
 <BaseLayout title={title} description={description} lang={lang} ogImage={ogImage}>
   <Header lang={lang} />
-  <main id="main-content">
+  <main id="main-content" class={heroPage ? 'hero-page' : 'inner-page'}>
     <slot />
   </main>
   <Footer lang={lang} />
 </BaseLayout>
+
+<style>
+  /* Hero pages: header is absolute over the hero — no top padding needed */
+  .hero-page {
+    padding-top: 0;
+  }
+
+  /* Inner pages: header is sticky, so push content below it */
+  .inner-page {
+    padding-top: 80px; /* matches navbar height */
+  }
+
+  @media (min-width: 768px) {
+    .inner-page { padding-top: 92px; }
+  }
+</style>

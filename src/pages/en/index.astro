@@ -3,12 +3,48 @@ import PageLayout from '../../layouts/PageLayout.astro';
 import Hero from '../../components/sections/Hero.astro';
 import ServicesGrid from '../../components/sections/ServicesGrid.astro';
 import StatsSection from '../../components/sections/StatsSection.astro';
+import PortfolioGallery from '../../components/sections/PortfolioGallery.astro';
+import PricingSection from '../../components/sections/PricingSection.astro';
 import TestimonialsSection from '../../components/sections/TestimonialsSection.astro';
+import FaqAccordion from '../../components/sections/FaqAccordion.astro';
 import CtaBanner from '../../components/ui/CtaBanner.astro';
 import services from '../../data/services.json';
 import stats from '../../data/stats.json';
 import testimonials from '../../data/testimonials.json';
+import portfolio from '../../data/portfolio.json';
+import faqData from '../../content/faq/en.json';
 import { t } from '../../i18n/utils';
+
+import riad1Salon    from '../../assets/images/portfolio/riad-1-salon.jpg';
+import riad1Terrasse from '../../assets/images/portfolio/riad-1-terrasse.jpg';
+import riad1Chambre  from '../../assets/images/portfolio/riad-1-chambre.jpg';
+import appart1Salon  from '../../assets/images/portfolio/appart-1-salon.jpg';
+import appart1Chambre from '../../assets/images/portfolio/appart-1-chambre.jpg';
+import appart1Cuisine from '../../assets/images/portfolio/appart-1-cuisine.jpg';
+import appart2Salon  from '../../assets/images/portfolio/appart-2-salon.jpg';
+import appart2Chambre from '../../assets/images/portfolio/appart-2-chambre.jpg';
+import appart3Salon  from '../../assets/images/portfolio/appart-3-salon.jpg';
+import appart3Chambre from '../../assets/images/portfolio/appart-3-chambre.jpg';
+import appart3Cuisine from '../../assets/images/portfolio/appart-3-cuisine.jpg';
+
+const imageMap: Record<string, ImageMetadata> = {
+  'riad-1-salon':     riad1Salon,
+  'riad-1-terrasse':  riad1Terrasse,
+  'riad-1-chambre':   riad1Chambre,
+  'appart-1-salon':   appart1Salon,
+  'appart-1-chambre': appart1Chambre,
+  'appart-1-cuisine': appart1Cuisine,
+  'appart-2-salon':   appart2Salon,
+  'appart-2-chambre': appart2Chambre,
+  'appart-3-salon':   appart3Salon,
+  'appart-3-chambre': appart3Chambre,
+  'appart-3-cuisine': appart3Cuisine,
+};
+
+const portfolioItems = portfolio.map(item => ({
+  ...item,
+  src: imageMap[item.file],
+})).filter(item => item.src);
 
 const lang = 'en' as const;
 ---
@@ -17,6 +53,7 @@ const lang = 'en' as const;
   title={t(lang, 'hero.headline') + ' — KechBnb Marrakech'}
   description="KechBnb manages your Airbnb property in Marrakech: listings, guests, cleaning, pricing and interior design. Single 20% commission. Free estimate."
   lang={lang}
+  heroPage={true}
 >
   <Hero
     lang={lang}
@@ -30,7 +67,13 @@ const lang = 'en' as const;
 
   <StatsSection lang={lang} stats={stats} />
 
+  <PortfolioGallery lang={lang} items={portfolioItems} />
+
+  <PricingSection lang={lang} />
+
   <TestimonialsSection lang={lang} testimonials={testimonials} />
+
+  <FaqAccordion lang={lang} items={faqData} />
 
   <CtaBanner lang={lang} />
 </PageLayout>
