@@ -1,0 +1,265 @@
+---
+import Icon from '../ui/Icon.astro';
+
+interface Service {
+  id: string;
+  icon: string;
+  title: { fr: string; en: string };
+  description: { fr: string; en: string };
+}
+
+interface Props {
+  lang: 'fr' | 'en';
+  services: Service[];
+}
+
+const { lang, services } = Astro.props;
+
+const tag     = lang === 'fr' ? 'Nos services' : 'Our services';
+const heading = lang === 'fr' ? 'Une gestion <em>complète</em>' : 'A <em>complete</em> management';
+const sub     = lang === 'fr'
+  ? 'Tout est inclus dans notre commission de 20% — aucun frais caché, aucune surprise.'
+  : 'Everything is included in our 20% commission — no hidden fees, no surprises.';
+
+const commissionNote = lang === 'fr'
+  ? '✓  Commission unique de 20% par réservation — tous les services ci-dessus inclus'
+  : '✓  Single 20% commission per booking — all services above included';
+---
+
+<section class="services-section" aria-labelledby="services-heading">
+
+  <!-- Header -->
+  <div class="services-header">
+    <p class="section-tag">{tag}</p>
+    <h2 id="services-heading" class="services-heading" set:html={heading}></h2>
+    <p class="services-sub">{sub}</p>
+  </div>
+
+  <!-- Scrollable cards track -->
+  <div class="services-track-wrap" role="list" aria-label={lang === 'fr' ? 'Liste des services' : 'Services list'}>
+    <div class="services-track">
+      {services.map((svc, i) => (
+        <article
+          class="service-card"
+          role="listitem"
+          style={`animation-delay: ${i * 0.09}s`}
+        >
+          <!-- Icon -->
+          <div class="svc-icon-wrap" aria-hidden="true">
+            <Icon name={svc.icon} size={28} class="svc-icon" />
+          </div>
+
+          <!-- Content -->
+          <h3 class="svc-title">{svc.title[lang]}</h3>
+          <p class="svc-desc">{svc.description[lang]}</p>
+
+          <!-- Bottom accent -->
+          <div class="svc-accent" aria-hidden="true"></div>
+        </article>
+      ))}
+    </div>
+  </div>
+
+  <!-- Commission note -->
+  <p class="commission-note">{commissionNote}</p>
+</section>
+
+<style>
+  .services-section {
+    background: var(--color-offwhite);
+    padding: var(--space-xl) 0 var(--space-l);
+    overflow: hidden;
+  }
+
+  /* ── Header ── */
+  .services-header {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto var(--space-m);
+    padding: 0 1.5rem;
+  }
+
+  .services-heading {
+    font-family: var(--font-outfit);
+    font-size: clamp(2rem, 4vw + 0.5rem, 3.25rem);
+    font-weight: 600;
+    color: var(--color-text);
+    line-height: 1.1;
+    margin: 0 0 1rem;
+  }
+
+  .services-heading em {
+    font-family: var(--font-newsreader);
+    font-style: italic;
+    color: var(--color-accent);
+  }
+
+  .services-sub {
+    font-family: var(--font-manrope);
+    font-size: 1.0625rem;
+    color: var(--color-text-medium);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* ── Scrollable track ── */
+  .services-track-wrap {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    padding: 0 max(1.5rem, calc((100vw - var(--max-width)) / 2 + 1.5rem));
+    cursor: grab;
+  }
+
+  .services-track-wrap::-webkit-scrollbar {
+    display: none;
+  }
+
+  .services-track-wrap:active {
+    cursor: grabbing;
+  }
+
+  .services-track {
+    display: flex;
+    gap: 1.25rem;
+    width: max-content;
+    padding-bottom: 1rem; /* room for shadow */
+  }
+
+  /* ── Service card ── */
+  .service-card {
+    position: relative;
+    background: #ffffff;
+    border-radius: var(--radius-card);
+    box-shadow: var(--shadow-soft);
+    padding: 2rem 1.75rem;
+    width: 300px;
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow: hidden;
+    opacity: 0;
+    animation: cardSlideIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    transition: transform var(--transition-base), box-shadow var(--transition-base);
+  }
+
+  .service-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-hover);
+  }
+
+  /* Icon */
+  .svc-icon-wrap {
+    width: 56px;
+    height: 56px;
+    border-radius: 14px;
+    background: rgba(44, 74, 87, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: background var(--transition-fast);
+  }
+
+  .service-card:hover .svc-icon-wrap {
+    background: rgba(252, 76, 0, 0.1);
+  }
+
+  .svc-icon {
+    color: var(--color-primary);
+    transition: color var(--transition-fast);
+  }
+
+  .service-card:hover .svc-icon {
+    color: var(--color-accent);
+  }
+
+  /* Texts */
+  .svc-title {
+    font-family: var(--font-outfit);
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: var(--color-text);
+    line-height: 1.3;
+    margin: 0;
+  }
+
+  .svc-desc {
+    font-family: var(--font-manrope);
+    font-size: 0.9rem;
+    color: var(--color-text-medium);
+    line-height: 1.7;
+    margin: 0;
+    flex: 1;
+  }
+
+  /* Bottom accent line */
+  .svc-accent {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    border-radius: 0 0 var(--radius-card) var(--radius-card);
+  }
+
+  .service-card:hover .svc-accent {
+    transform: scaleX(1);
+  }
+
+  /* ── Commission note ── */
+  .commission-note {
+    font-family: var(--font-outfit);
+    font-size: 0.9375rem;
+    color: var(--color-primary);
+    text-align: center;
+    margin: var(--space-m) auto 0;
+    padding: 0 1.5rem;
+    opacity: 0.75;
+  }
+
+  @keyframes cardSlideIn {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .service-card { animation: none; opacity: 1; transition: none; }
+    .svc-accent   { transition: none; }
+  }
+
+  @media (min-width: 1024px) {
+    .services-section { padding: var(--space-xl) 0; }
+    .service-card { width: 320px; }
+  }
+</style>
+
+<script>
+  // Drag-to-scroll
+  const wrap = document.querySelector<HTMLElement>('.services-track-wrap');
+  if (wrap) {
+    let isDown = false;
+    let startX = 0;
+    let scrollLeft = 0;
+
+    wrap.addEventListener('mousedown', e => {
+      isDown = true;
+      startX = e.pageX - wrap.offsetLeft;
+      scrollLeft = wrap.scrollLeft;
+    });
+
+    document.addEventListener('mouseup', () => { isDown = false; });
+
+    wrap.addEventListener('mousemove', e => {
+      if (!isDown) return;
+      e.preventDefault();
+      const x = e.pageX - wrap.offsetLeft;
+      wrap.scrollLeft = scrollLeft - (x - startX) * 1.2;
+    });
+  }
+</script>

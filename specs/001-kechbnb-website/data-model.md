@@ -101,27 +101,44 @@ or `src/i18n/`. The "schema" is enforced at build time by Astro Content Collecti
 
 ---
 
-## Entity 5: Portfolio Item (Interior Design)
+## Entity 5: Portfolio Item ("Nos Réalisations" gallery)
 
 **Storage**: `src/content/portfolio.json` + images in `src/assets/images/portfolio/`
+
+**Design intent**: This is a curated flat gallery showcasing KechBnb's decoration and
+photography skills — NOT grouped by listing type. Captions describe the design choice
+(e.g. "Salon au style riad contemporain") not the property. Feels like a design studio
+portfolio, not a rental listing page.
+
+**Images at launch**: 12 photos — 1 riad (3 photos) and 3 apartments (8 photos),
+all mixed in a single gallery ordered by visual impact.
+
+**Confirmed files**:
+- `riad-1-salon.jpg`, `riad-1-chambre.jpg`, `riad-1-terrasse.jpg`
+- `appart-1-salon.jpg`, `appart-1-chambre.jpg`, `appart-1-cuisine.jpg`
+- `appart-2-salon.jpg`, `appart-2-chambre.jpg`
+- `appart-3-salon.jpg`, `appart-3-chambre.jpg`, `appart-3-cuisine.jpg`
+
+**Team photos confirmed**: `team-cleaning.jpg`, `team-electrician.jpg`, `team-garden.jpg`
+**Logo confirmed**: `src/assets/logo.png`
+**Hero confirmed**: `src/assets/images/hero/hero-bg.jpg`
 
 ### Schema
 
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `id` | string | yes | Stable identifier |
-| `image` | string (path) | yes | Path to "after" photo in assets |
-| `alt.fr` | string | yes | Alt text in French for accessibility |
-| `alt.en` | string | yes | Alt text in English |
-| `caption.fr` | string | yes | Caption in French |
-| `caption.en` | string | yes | Caption in English |
-| `propertyType` | string | yes | e.g. "Riad, Médina de Marrakech" |
-| `order` | integer | yes | Display order in gallery |
+| `image` | string (path) | yes | Path to photo in `src/assets/images/portfolio/` |
+| `alt.fr` | string | yes | Descriptive alt text in French (accessibility) |
+| `alt.en` | string | yes | Descriptive alt text in English |
+| `caption.fr` | string | yes | Design-focused caption in French (describes space/style, not listing) |
+| `caption.en` | string | yes | Design-focused caption in English |
+| `order` | integer | yes | Display order — best/most impactful photos first |
 
 ### Validation Rules
-- If image file is missing at build time, Astro's image component will throw a build error.
-- Placeholder images (e.g. gray boxes with dimensions) are used until client provides photos.
-- Alt text must be descriptive, not empty (accessibility requirement, Principle VI).
+- If image file is missing at build time, Astro's image component throws a build error.
+- Alt text must be descriptive and non-empty (Principle VI — Accessibility).
+- Captions MUST NOT mention listing names, addresses, or property types — design focus only.
 
 ---
 
@@ -134,11 +151,14 @@ or `src/i18n/`. The "schema" is enforced at build time by Astro Content Collecti
 | Field | Type | Required | Description |
 |-------|------|----------|-------------|
 | `id` | string | yes | Stable identifier |
-| `icon` | string | yes | Heroicons icon name |
+| `icon` | string | yes | Heroicons icon name (fallback if no team photo) |
 | `title.fr` | string | yes | Service name in French |
 | `title.en` | string | yes | Service name in English |
 | `description.fr` | string | yes | Description in French |
 | `description.en` | string | yes | Description in English |
+| `teamPhoto` | string (path) | no | Real team photo for this service in `src/assets/images/team/` |
+| `teamPhotoAlt.fr` | string | no | Alt text for team photo in French |
+| `teamPhotoAlt.en` | string | no | Alt text for team photo in English |
 | `order` | integer | yes | Display order |
 
 ### Services at launch (6 items)

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "commission",
+    "question": "Quel est le montant de la commission KechBnb ?",
+    "answer": "Notre commission est de 20% sur chaque réservation encaissée. Ce taux unique couvre l'intégralité de nos services : création d'annonce, communication avec les invités, coordination du ménage, tarification dynamique, suivi de maintenance et assistance décoration. Aucun frais fixe, aucun frais caché.",
+    "order": 1
+  },
+  {
+    "id": "getting-started",
+    "question": "Comment démarrer avec KechBnb ?",
+    "answer": "C'est très simple : remplissez notre formulaire de contact ou appelez-nous directement. Nous organisons une visite de votre bien à Marrakech, vous présentons une estimation de vos revenus potentiels, puis nous prenons en charge toute la préparation et la mise en ligne de votre annonce.",
+    "order": 2
+  },
+  {
+    "id": "property-types",
+    "question": "Quels types de biens gérez-vous ?",
+    "answer": "Nous gérons tous les types de biens résidentiels à Marrakech : riads, appartements, villas et maisons de ville. Que vous ayez un seul bien ou plusieurs propriétés, nous adaptons notre gestion à vos besoins spécifiques.",
+    "order": 3
+  },
+  {
+    "id": "damage",
+    "question": "Que se passe-t-il si un invité abîme mon bien ?",
+    "answer": "Airbnb propose une garantie hôte (AirCover) qui couvre les dommages jusqu'à 3 millions de dollars. En parallèle, nous effectuons un état des lieux systématique après chaque départ et gérons toutes les réclamations en votre nom auprès d'Airbnb pour que vous n'ayez à vous occuper de rien.",
+    "order": 4
+  },
+  {
+    "id": "payment",
+    "question": "Comment et quand est-ce que je reçois mes revenus ?",
+    "answer": "Airbnb verse les paiements directement sur votre compte bancaire selon leur calendrier (généralement 24h après le check-in de l'invité). Nous déduisons notre commission de 20% de chaque paiement reçu et vous envoyons un récapitulatif mensuel détaillé de toutes les réservations.",
+    "order": 5
+  },
+  {
+    "id": "availability",
+    "question": "Puis-je utiliser mon bien pour un usage personnel ?",
+    "answer": "Absolument. Vous restez propriétaire et pouvez bloquer les dates de votre choix pour un usage personnel à tout moment depuis votre espace Airbnb ou en nous contactant. Nous synchronisons le calendrier en conséquence.",
+    "order": 6
+  },
+  {
+    "id": "contract",
+    "question": "Y a-t-il un contrat de durée minimum ?",
+    "answer": "Nous ne vous imposons pas de durée minimale contraignante. Nous croyons que la meilleure façon de vous garder est de vous apporter des résultats, pas de vous lier contractuellement. Les modalités précises sont définies lors de notre premier échange.",
+    "order": 7
+  },
+  {
+    "id": "interior-design",
+    "question": "La décoration intérieure est-elle vraiment incluse ?",
+    "answer": "Oui, notre assistance décoration est incluse dans la commission de 20%. Nous vous conseillons sur la mise en scène, la sélection des accessoires et la disposition du mobilier pour maximiser l'attractivité de votre bien sur Airbnb. Pour des travaux de décoration plus importants, nous pouvons vous mettre en relation avec nos partenaires artisans à Marrakech.",
+    "order": 8
+  }
+]

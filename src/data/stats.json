@@ -1,0 +1,23 @@
+[
+  {
+    "id": "occupancy",
+    "value": "87%",
+    "label": { "fr": "Taux d'occupation moyen", "en": "Average occupancy rate" },
+    "footnote": { "fr": "Moyenne sur 12 mois, ensemble du portefeuille géré", "en": "12-month average across managed portfolio" },
+    "order": 1
+  },
+  {
+    "id": "revenue-uplift",
+    "value": "+40%",
+    "label": { "fr": "De revenus vs location longue durée", "en": "More revenue vs long-term rental" },
+    "footnote": { "fr": "Comparaison revenu Airbnb net vs loyer mensuel équivalent", "en": "Net Airbnb income vs equivalent monthly rent" },
+    "order": 2
+  },
+  {
+    "id": "properties",
+    "value": "50+",
+    "label": { "fr": "Propriétés gérées à Marrakech", "en": "Properties managed in Marrakech" },
+    "footnote": { "fr": "Riads, appartements et villas confondus", "en": "Riads, apartments and villas combined" },
+    "order": 3
+  }
+]

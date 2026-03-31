@@ -1,0 +1,238 @@
+/* KechBnb Brand Tokens — Single source of truth */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  /* ─── Core palette (Carpediem-inspired) ─── */
+  --color-primary:              #2C4A57;
+  --color-primary-dark:         #1A2E38;
+  --color-primary-light:        #3D6275;
+  --color-accent:               #fc4c00;
+  --color-accent-hover:         #e64400;
+  --color-star:                 #fbbf24;
+  --color-whatsapp:             #25D366;
+
+  /* RGB variants for rgba() layering */
+  --color-primary-rgb:          44, 74, 87;
+  --color-accent-rgb:           252, 76, 0;
+  --color-white-rgb:            255, 255, 255;
+  --color-black-rgb:            0, 0, 0;
+  --color-bg-dark-rgb:          26, 46, 56;
+
+  /* Surfaces & text */
+  --color-surface:              #ffffff;
+  --color-offwhite:             #f8f9fa;
+  --color-text:                 #2C4A57;
+  --color-text-medium:          #5A7582;
+  --color-text-light:           rgba(255, 255, 255, 0.82);
+  --color-border:               rgba(0, 0, 0, 0.1);
+
+  /* Legacy aliases kept for component compatibility */
+  --color-terracotta:           #fc4c00;
+  --color-terracotta-light:     #ff6e2a;
+  --color-terracotta-dark:      #e64400;
+  --color-gold:                 #fbbf24;
+  --color-gold-light:           #fcd34d;
+
+  /* ─── Typography ─── */
+  --font-outfit:    'Outfit', system-ui, sans-serif;
+  --font-manrope:   'Manrope', system-ui, sans-serif;
+  --font-newsreader:'Newsreader', Georgia, serif;
+  --font-signature: 'Cedarville Cursive', cursive;
+
+  /* Map to generic roles used by existing components */
+  --font-sans:      var(--font-outfit);
+  --font-serif:     var(--font-newsreader);
+  --font-body:      var(--font-manrope);
+
+  --font-size-base:   1rem;
+  --line-height-base: 1.6;
+
+  /* ─── Spacing ─── */
+  --space-s:  20px;
+  --space-m:  40px;
+  --space-l:  80px;
+  --space-xl: 120px;
+
+  /* Rem-based aliases used by existing components */
+  --space-1:  0.25rem;
+  --space-2:  0.5rem;
+  --space-3:  0.75rem;
+  --space-4:  1rem;
+  --space-6:  1.5rem;
+  --space-8:  2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+
+  /* ─── Layout ─── */
+  --max-width: 1480px;
+
+  /* ─── Border radius ─── */
+  --radius-sm:    8px;
+  --radius-brand: 18px;
+  --radius-card:  24px;
+  --radius-lg:    24px;
+  --radius-full:  100px;
+
+  /* ─── Shadows ─── */
+  --shadow-soft:   0 4px 20px rgba(0, 0, 0, 0.08);
+  --shadow-medium: 0 2px 10px rgba(0, 0, 0, 0.10);
+  --shadow-heavy:  0 20px 60px rgba(0, 0, 0, 0.12);
+  --shadow-hover:  0 20px 40px rgba(var(--color-primary-rgb), 0.15);
+  --shadow-accent: 0 8px 30px rgba(var(--color-accent-rgb), 0.40);
+
+  /* Legacy aliases */
+  --shadow-card:   var(--shadow-soft);
+
+  /* ─── Transitions ─── */
+  --transition-base:  0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-fast:  0.2s ease;
+  --transition-slow:  0.5s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ─── Gradients ─── */
+  --gradient-primary:  linear-gradient(135deg, var(--color-primary), var(--color-primary-dark));
+  --gradient-accent:   linear-gradient(135deg, var(--color-accent), var(--color-accent-hover));
+  --gradient-hero:     linear-gradient(160deg, rgba(0,0,0,0.55) 0%, rgba(26,46,56,0.50) 50%, rgba(0,0,0,0.60) 100%);
+  --gradient-card:     linear-gradient(180deg, rgba(var(--color-bg-dark-rgb),0) 40%, rgba(var(--color-bg-dark-rgb),0.92) 100%);
+
+  /* ─── Navbar tokens ─── */
+  --navbar-bg:           rgba(var(--color-white-rgb), 0.03);
+  --navbar-border:       rgba(var(--color-white-rgb), 0.08);
+  --navbar-scrolled-bg:  #ffffff;
+  --navbar-link-color:   rgba(var(--color-white-rgb), 0.85);
+  --navbar-link-hover-bg:rgba(var(--color-white-rgb), 0.06);
+}
+
+/* ─── Base reset ─── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-family: var(--font-manrope);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* ─── Skip link ─── */
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: 1rem;
+  padding: 0.5rem 1rem;
+  background: var(--color-accent);
+  color: white;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  z-index: 9999;
+  transition: top var(--transition-fast);
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* ─── Focus visible ─── */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+/* ─── Italic highlight (Newsreader italic) ─── */
+.italic-highlight {
+  font-family: var(--font-newsreader);
+  font-style: italic;
+  color: var(--color-accent);
+}
+
+/* ─── Section header utility ─── */
+.section-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-outfit);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  margin-bottom: 1rem;
+}
+
+.section-title {
+  font-family: var(--font-outfit);
+  font-size: clamp(2rem, 4vw + 0.5rem, 3.5rem);
+  font-weight: 600;
+  color: var(--color-text);
+  line-height: 1.1;
+  margin: 0 0 1rem;
+}
+
+.section-subtitle {
+  font-family: var(--font-manrope);
+  font-size: 1.125rem;
+  color: var(--color-text-medium);
+  line-height: 1.6;
+  max-width: 600px;
+}
+
+/* ─── Button base ─── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  background: var(--color-accent);
+  color: #ffffff;
+  font-family: var(--font-outfit);
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.875rem 2rem;
+  border-radius: var(--radius-full);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  box-shadow: 0 4px 20px rgba(var(--color-accent-rgb), 0.3);
+  min-height: 52px;
+}
+
+.btn-primary:hover {
+  opacity: 0.88;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-accent);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.625rem;
+  background: rgba(var(--color-white-rgb), 0.08);
+  backdrop-filter: blur(25px);
+  color: #ffffff;
+  font-family: var(--font-outfit);
+  font-size: 1rem;
+  font-weight: 500;
+  padding: 0.875rem 2rem;
+  border-radius: var(--radius-full);
+  border: 1px solid rgba(var(--color-white-rgb), 0.15);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--transition-fast);
+  min-height: 52px;
+}
+
+.btn-secondary:hover {
+  background: rgba(var(--color-white-rgb), 0.15);
+  border-color: rgba(var(--color-white-rgb), 0.3);
+}

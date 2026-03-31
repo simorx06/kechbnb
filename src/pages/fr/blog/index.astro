@@ -1,0 +1,21 @@
+---
+import PageLayout from '../../../layouts/PageLayout.astro';
+import BlogIndexGrid from '../../../components/sections/BlogIndexGrid.astro';
+import CtaBanner from '../../../components/ui/CtaBanner.astro';
+import { getCollection } from 'astro:content';
+import { t } from '../../../i18n/utils';
+
+const lang = 'fr' as const;
+
+const allPosts = await getCollection('blog');
+const articles = allPosts.filter(post => post.id.startsWith('fr/'));
+---
+
+<PageLayout
+  title={t(lang, 'blog.page-title')}
+  description={t(lang, 'blog.meta-description')}
+  lang={lang}
+>
+  <BlogIndexGrid lang={lang} articles={articles} />
+  <CtaBanner lang={lang} />
+</PageLayout>

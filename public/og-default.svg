@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#C4714A"/>
+  <rect x="60" y="60" width="1080" height="510" fill="none" stroke="#B8973E" stroke-width="3"/>
+  <text x="600" y="280" font-family="Georgia,serif" font-size="72" font-weight="bold" fill="#FAF7F2" text-anchor="middle">KechBnb</text>
+  <text x="600" y="370" font-family="Georgia,serif" font-size="28" fill="#FAF7F2" text-anchor="middle" opacity="0.9">Gestion Airbnb à Marrakech</text>
+  <text x="600" y="430" font-family="Georgia,serif" font-size="22" fill="#B8973E" text-anchor="middle">Commission unique 20% · Estimation gratuite</text>
+</svg>

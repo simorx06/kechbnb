@@ -1,0 +1,54 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import FaqAccordion from '../../components/sections/FaqAccordion.astro';
+import CtaBanner from '../../components/ui/CtaBanner.astro';
+import { t } from '../../i18n/utils';
+import faqItems from '../../content/faq/fr.json';
+
+const lang = 'fr' as const;
+---
+
+<PageLayout
+  title={t(lang, 'faq.page-title')}
+  description={t(lang, 'faq.meta-description')}
+  lang={lang}
+>
+  <FaqAccordion lang={lang} items={faqItems} />
+
+  <div class="faq-contact-cta">
+    <p>
+      <a href={`/${lang}/contact`} class="faq-contact-link">
+        {t(lang, 'faq.cta')}
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+        </svg>
+      </a>
+    </p>
+  </div>
+
+  <CtaBanner lang={lang} />
+</PageLayout>
+
+<style>
+  .faq-contact-cta {
+    background: var(--color-offwhite);
+    padding: 0 1.25rem 3rem;
+    text-align: center;
+  }
+
+  .faq-contact-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: var(--color-terracotta);
+    text-decoration: none;
+    transition: gap 0.2s ease;
+  }
+
+  .faq-contact-link:hover {
+    gap: 0.75rem;
+  }
+</style>

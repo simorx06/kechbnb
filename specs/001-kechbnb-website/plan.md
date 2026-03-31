@@ -70,9 +70,12 @@ kechbnb/
 │   └── favicon.svg
 ├── src/
 │   ├── assets/
-│   │   ├── logo.svg                     # Client-provided logo
+│   │   ├── logo.png                     # Client-provided logo
 │   │   └── images/
-│   │       └── portfolio/               # Client-provided "after" photos
+│   │       ├── hero/
+│   │       │   └── hero-bg.jpg          # Homepage hero background (client-provided)
+│   │       ├── portfolio/               # Curated "our work" gallery (15 photos, client-provided)
+│   │       └── team/                    # Operational team photos (3 photos, client-provided)
 │   ├── components/
 │   │   ├── layout/
 │   │   │   ├── Header.astro

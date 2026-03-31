@@ -1,0 +1,50 @@
+[
+  {
+    "id": "commission",
+    "question": "How much is the KechBnb commission?",
+    "answer": "Our commission is 20% of each booking received. This single rate covers all our services: listing creation, guest communication, cleaning coordination, dynamic pricing, maintenance follow-up, and interior design assistance. No fixed fees, no hidden charges.",
+    "order": 1
+  },
+  {
+    "id": "getting-started",
+    "question": "How do I get started with KechBnb?",
+    "answer": "It's straightforward: fill in our contact form or call us directly. We arrange a visit to your property in Marrakech, present you with an estimate of your potential earnings, then take care of all the preparation and listing setup.",
+    "order": 2
+  },
+  {
+    "id": "property-types",
+    "question": "What types of properties do you manage?",
+    "answer": "We manage all types of residential properties in Marrakech: riads, apartments, villas and townhouses. Whether you have a single property or a portfolio, we tailor our management to your specific needs.",
+    "order": 3
+  },
+  {
+    "id": "damage",
+    "question": "What happens if a guest damages my property?",
+    "answer": "Airbnb offers a host guarantee (AirCover) covering damage up to $3 million. On top of that, we conduct a systematic inspection after every checkout and manage all claims on your behalf with Airbnb so you don't have to deal with anything.",
+    "order": 4
+  },
+  {
+    "id": "payment",
+    "question": "How and when do I receive my earnings?",
+    "answer": "Airbnb pays directly into your bank account according to their schedule (usually 24 hours after guest check-in). We deduct our 20% commission from each payment received and send you a detailed monthly summary of all bookings.",
+    "order": 5
+  },
+  {
+    "id": "availability",
+    "question": "Can I use my property for personal stays?",
+    "answer": "Absolutely. You remain the owner and can block any dates for personal use at any time through your Airbnb account or by contacting us. We synchronise the calendar accordingly.",
+    "order": 6
+  },
+  {
+    "id": "contract",
+    "question": "Is there a minimum contract period?",
+    "answer": "We do not impose a binding minimum term. We believe the best way to keep you is by delivering results, not by tying you in contractually. The precise terms are agreed during our first conversation.",
+    "order": 7
+  },
+  {
+    "id": "interior-design",
+    "question": "Is interior design assistance really included?",
+    "answer": "Yes, our interior design assistance is included in the 20% commission. We advise on staging, accessory selection and furniture layout to maximise your property's appeal on Airbnb. For more substantial decoration work, we can connect you with our trusted craftsmen in Marrakech.",
+    "order": 8
+  }
+]

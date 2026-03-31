@@ -1,0 +1,298 @@
+---
+import { Image } from 'astro:assets';
+
+interface PortfolioItem {
+  id: string;
+  file: string;
+  caption: { fr: string; en: string };
+  order: number;
+  src: ImageMetadata;
+}
+
+interface Props {
+  lang: 'fr' | 'en';
+  items: PortfolioItem[];
+}
+
+const { lang, items } = Astro.props;
+const sorted = [...items].sort((a, b) => a.order - b.order);
+
+const tag     = lang === 'fr' ? 'Nos réalisations' : 'Our work';
+const heading = lang === 'fr' ? 'Des espaces <em>sublimés</em>' : 'Spaces <em>transformed</em>';
+const sub     = lang === 'fr'
+  ? 'Chaque bien que nous gérons bénéficie d\'une attention particulière à la décoration et à la mise en scène.'
+  : 'Every property we manage receives special attention to decoration and staging.';
+
+// Infer property type from file name
+function getTypeLabel(file: string, lang: 'fr' | 'en') {
+  if (file.startsWith('riad')) return lang === 'fr' ? 'Riad' : 'Riad';
+  return lang === 'fr' ? 'Appartement' : 'Apartment';
+}
+
+// Infer room type from file name
+function getRoomLabel(file: string, lang: 'fr' | 'en') {
+  if (file.includes('salon'))   return lang === 'fr' ? 'Salon' : 'Living room';
+  if (file.includes('chambre')) return lang === 'fr' ? 'Chambre' : 'Bedroom';
+  if (file.includes('cuisine')) return lang === 'fr' ? 'Cuisine' : 'Kitchen';
+  if (file.includes('terrasse'))return lang === 'fr' ? 'Terrasse' : 'Terrace';
+  return lang === 'fr' ? 'Espace' : 'Space';
+}
+---
+
+<section class="portfolio-section" aria-labelledby="portfolio-heading">
+
+  <!-- Header -->
+  <div class="portfolio-header">
+    <p class="section-tag">{tag}</p>
+    <h2 id="portfolio-heading" class="portfolio-heading" set:html={heading}></h2>
+    <p class="portfolio-sub">{sub}</p>
+  </div>
+
+  <!-- Cards grid -->
+  <div class="portfolio-grid" role="list" aria-label={lang === 'fr' ? 'Galerie des réalisations' : 'Portfolio gallery'}>
+    {sorted.map((item, i) => (
+      <figure
+        class="portfolio-card"
+        role="listitem"
+        style={`animation-delay: ${(i % 3) * 0.1}s`}
+      >
+        <!-- Image -->
+        <div class="card-img-wrap">
+          <Image
+            src={item.src}
+            alt={item.caption[lang]}
+            width={800}
+            height={600}
+            format="webp"
+            quality={82}
+            loading="lazy"
+            class="card-img"
+          />
+          <!-- Gradient overlay -->
+          <div class="card-overlay" aria-hidden="true"></div>
+
+          <!-- Top badges -->
+          <div class="card-badges" aria-hidden="true">
+            <span class="badge-type">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+              </svg>
+              Marrakech
+            </span>
+            <span class="badge-room">{getRoomLabel(item.file, lang)}</span>
+          </div>
+
+          <!-- Bottom info -->
+          <figcaption class="card-info">
+            <p class="card-property-type">{getTypeLabel(item.file, lang)}</p>
+            <p class="card-caption">{item.caption[lang]}</p>
+          </figcaption>
+        </div>
+      </figure>
+    ))}
+  </div>
+
+  <!-- CTA -->
+  <div class="portfolio-cta">
+    <a href={`/${lang}/contact`} class="btn-primary">
+      {lang === 'fr' ? 'Confier mon bien' : 'Entrust my property'}
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+      </svg>
+    </a>
+  </div>
+</section>
+
+<style>
+  .portfolio-section {
+    background: var(--color-primary-dark);
+    padding: var(--space-xl) 1.5rem var(--space-l);
+  }
+
+  /* ── Header ── */
+  .portfolio-header {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto var(--space-m);
+  }
+
+  .section-tag { color: rgba(var(--color-white-rgb), 0.6); }
+
+  .portfolio-heading {
+    font-family: var(--font-outfit);
+    font-size: clamp(2rem, 4vw + 0.5rem, 3.25rem);
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 1.1;
+    margin: 0 0 1rem;
+  }
+
+  .portfolio-heading em {
+    font-family: var(--font-newsreader);
+    font-style: italic;
+    color: var(--color-accent);
+  }
+
+  .portfolio-sub {
+    font-family: var(--font-manrope);
+    font-size: 1.0625rem;
+    color: rgba(var(--color-white-rgb), 0.65);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* ── Grid ── */
+  .portfolio-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  @media (min-width: 600px) {
+    .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (min-width: 900px) {
+    .portfolio-grid { grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+  }
+
+  /* ── Card ── */
+  .portfolio-card {
+    position: relative;
+    border-radius: var(--radius-card);
+    overflow: hidden;
+    margin: 0;
+    opacity: 0;
+    animation: cardReveal 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    cursor: pointer;
+  }
+
+  .portfolio-card:hover {
+    transform: translateY(-6px);
+  }
+
+  .card-img-wrap {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+
+  .card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .portfolio-card:hover .card-img {
+    transform: scale(1.06);
+  }
+
+  /* Gradient overlay */
+  .card-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      180deg,
+      rgba(var(--color-bg-dark-rgb), 0) 30%,
+      rgba(var(--color-bg-dark-rgb), 0.85) 100%
+    );
+    transition: opacity var(--transition-base);
+  }
+
+  /* Badges */
+  .card-badges {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    display: flex;
+    gap: 6px;
+    z-index: 1;
+  }
+
+  .badge-type,
+  .badge-room {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    padding: 4px 10px;
+    border-radius: 50px;
+    font-family: var(--font-outfit);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+
+  .badge-type {
+    background: rgba(var(--color-white-rgb), 0.88);
+    color: var(--color-primary);
+    backdrop-filter: blur(8px);
+  }
+
+  .badge-room {
+    background: var(--color-accent);
+    color: #ffffff;
+  }
+
+  /* Bottom info */
+  .card-info {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 1.25rem;
+    z-index: 1;
+    transform: translateY(4px);
+    transition: transform var(--transition-base);
+  }
+
+  .portfolio-card:hover .card-info {
+    transform: translateY(0);
+  }
+
+  .card-property-type {
+    font-family: var(--font-outfit);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(var(--color-white-rgb), 0.55);
+    margin: 0 0 0.25rem;
+  }
+
+  .card-caption {
+    font-family: var(--font-outfit);
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: #ffffff;
+    margin: 0;
+    line-height: 1.35;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* ── CTA ── */
+  .portfolio-cta {
+    display: flex;
+    justify-content: center;
+    margin-top: var(--space-m);
+  }
+
+  @keyframes cardReveal {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .portfolio-card { animation: none; opacity: 1; transition: none; }
+    .card-img, .card-info { transition: none; }
+    .portfolio-card:hover .card-img { transform: none; }
+  }
+</style>

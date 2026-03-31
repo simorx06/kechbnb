@@ -1,0 +1,36 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import Hero from '../../components/sections/Hero.astro';
+import ServicesGrid from '../../components/sections/ServicesGrid.astro';
+import StatsSection from '../../components/sections/StatsSection.astro';
+import TestimonialsSection from '../../components/sections/TestimonialsSection.astro';
+import CtaBanner from '../../components/ui/CtaBanner.astro';
+import services from '../../data/services.json';
+import stats from '../../data/stats.json';
+import testimonials from '../../data/testimonials.json';
+import { t } from '../../i18n/utils';
+
+const lang = 'en' as const;
+---
+
+<PageLayout
+  title={t(lang, 'hero.headline') + ' — KechBnb Marrakech'}
+  description="KechBnb manages your Airbnb property in Marrakech: listings, guests, cleaning, pricing and interior design. Single 20% commission. Free estimate."
+  lang={lang}
+>
+  <Hero
+    lang={lang}
+    headline={t(lang, 'hero.headline')}
+    subheadline={t(lang, 'hero.subheadline')}
+    ctaText={t(lang, 'hero.cta')}
+    badgeText={t(lang, 'hero.badge')}
+  />
+
+  <ServicesGrid lang={lang} services={services} />
+
+  <StatsSection lang={lang} stats={stats} />
+
+  <TestimonialsSection lang={lang} testimonials={testimonials} />
+
+  <CtaBanner lang={lang} />
+</PageLayout>

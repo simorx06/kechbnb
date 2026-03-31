@@ -1,0 +1,107 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "how-it-works": "How It Works",
+    "portfolio": "Our Work",
+    "faq": "FAQ",
+    "blog": "Blog",
+    "contact": "Contact",
+    "cta": "Free Estimate",
+    "lang-toggle": "FR"
+  },
+  "hero": {
+    "headline": "Entrust your Marrakech property to us. We handle everything.",
+    "subheadline": "KechBnb provides full Airbnb property management — from interior design to guest communication. One flat 20% commission.",
+    "cta": "Get a free estimate",
+    "badge": "20% commission — all inclusive"
+  },
+  "services": {
+    "page-title": "Our Services — KechBnb Marrakech",
+    "meta-description": "Discover all services included in our Airbnb management in Marrakech: listings, communication, cleaning, pricing, maintenance and interior design.",
+    "headline": "Full service, one commission",
+    "intro": "At KechBnb, we manage your property as if it were our own. All services below are included in our 20% commission — no hidden fees.",
+    "commission-note": "All services included in our 20% per-booking commission. No extra charges.",
+    "cta": "Entrust my property to KechBnb"
+  },
+  "how-it-works": {
+    "page-title": "How It Works — KechBnb Marrakech",
+    "meta-description": "Discover in 6 steps how KechBnb manages your Airbnb property in Marrakech, from first contact to your first booking.",
+    "headline": "Getting started is simple",
+    "step-1-title": "First contact",
+    "step-1-description": "You reach out via our form or by phone. We arrange a visit to your property in Marrakech.",
+    "step-2-title": "Assessment & strategy",
+    "step-2-description": "We analyse your property's potential and present a realistic estimate of your Airbnb income.",
+    "step-3-title": "Property preparation",
+    "step-3-description": "Our team handles decoration, staging and professional photography to maximise your listing's appeal.",
+    "step-4-title": "Listing creation",
+    "step-4-description": "We create and optimise your Airbnb listing with compelling descriptions and high-quality photos.",
+    "step-5-title": "Day-to-day management",
+    "step-5-description": "We handle all bookings, guest communication, cleaning and maintenance.",
+    "step-6-title": "You get paid",
+    "step-6-description": "Every month, your earnings are transferred directly to you. We take 20% commission — that's it.",
+    "cta": "Get started now"
+  },
+  "portfolio": {
+    "page-title": "Our Work — KechBnb Marrakech",
+    "meta-description": "Explore properties managed by KechBnb in Marrakech. Interior design, staging and professional photography.",
+    "headline": "Our Work",
+    "intro": "Every property we manage receives careful attention to decoration and staging. Here are some of our recent projects in Marrakech.",
+    "cta": "Entrust my property"
+  },
+  "contact": {
+    "page-title": "Contact — KechBnb Marrakech",
+    "meta-description": "Contact KechBnb for a free estimate for Airbnb management of your Marrakech property. Response within 24 hours.",
+    "headline": "Get a free estimate",
+    "form": {
+      "name": "Full name",
+      "phone": "Phone number",
+      "email": "Email address",
+      "neighborhood": "Neighbourhood / Area",
+      "num-properties": "Number of properties (optional)",
+      "message": "Message (optional)",
+      "submit": "Send my request",
+      "success": "Thank you! We will contact you within 24 hours.",
+      "error": "Something went wrong. Please try again or call us directly.",
+      "error-required": "This field is required.",
+      "error-email": "Please enter a valid email address."
+    },
+    "phone": "+212 6 00 00 00 00",
+    "email": "contact@kechbnb.com",
+    "address": "Marrakech, Morocco"
+  },
+  "faq": {
+    "page-title": "FAQ — KechBnb Marrakech",
+    "meta-description": "All your questions about Airbnb management with KechBnb in Marrakech answered.",
+    "headline": "Frequently Asked Questions",
+    "cta": "Still have questions? Contact us"
+  },
+  "blog": {
+    "page-title": "Blog — KechBnb Marrakech",
+    "meta-description": "Tips, news and guides for Airbnb landlords in Marrakech.",
+    "headline": "The KechBnb Blog",
+    "category": {
+      "tips": "Landlord Tips",
+      "market": "Marrakech Market",
+      "guest-experience": "Guest Experience"
+    },
+    "read-more": "Read more",
+    "article-cta": "Entrust my property to KechBnb",
+    "published": "Published on"
+  },
+  "footer": {
+    "tagline": "Professional Airbnb management in Marrakech",
+    "nav-title": "Navigation",
+    "contact-title": "Contact",
+    "social-title": "Social media",
+    "copyright": "© 2026 KechBnb. All rights reserved."
+  },
+  "common": {
+    "cta-global": "Get a free estimate",
+    "loading": "Loading...",
+    "skip-to-content": "Skip to main content",
+    "close": "Close",
+    "expand": "Expand",
+    "collapse": "Collapse"
+  }
+}

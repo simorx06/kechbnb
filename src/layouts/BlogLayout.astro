@@ -1,0 +1,69 @@
+---
+import PageLayout from './PageLayout.astro';
+import CtaBanner from '../components/ui/CtaBanner.astro';
+import { t } from '../i18n/utils';
+
+interface Props {
+  title: string;
+  description: string;
+  lang: 'fr' | 'en';
+  pubDate: Date;
+  category: string;
+}
+
+const { title, description, lang, pubDate, category } = Astro.props;
+
+const siteUrl = 'https://kechbnb.com';
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: title,
+  description,
+  datePublished: pubDate.toISOString(),
+  dateModified: pubDate.toISOString(),
+  author: { '@type': 'Organization', name: 'KechBnb', url: siteUrl },
+  publisher: {
+    '@type': 'Organization',
+    name: 'KechBnb',
+    url: siteUrl,
+    logo: { '@type': 'ImageObject', url: `${siteUrl}/favicon.svg` },
+  },
+  inLanguage: lang === 'fr' ? 'fr-MA' : 'en-US',
+};
+
+const categoryLabels: Record<string, Record<string, string>> = {
+  fr: { tips: 'Conseils propriétaires', market: 'Marché Marrakech', 'guest-experience': 'Expérience invités' },
+  en: { tips: 'Landlord Tips', market: 'Marrakech Market', 'guest-experience': 'Guest Experience' },
+};
+
+const dateStr = pubDate.toLocaleDateString(lang === 'fr' ? 'fr-MA' : 'en-GB', {
+  day: 'numeric', month: 'long', year: 'numeric',
+});
+---
+
+<PageLayout title={title} description={description} lang={lang}>
+  <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />
+  <article class="max-w-3xl mx-auto px-4 py-16">
+    <header class="mb-10">
+      <div class="flex items-center gap-3 mb-4">
+        <span class="text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full"
+          style="background:var(--color-gold-light);color:var(--color-text)">
+          {categoryLabels[lang][category] ?? category}
+        </span>
+        <time class="text-sm text-[var(--color-text-muted)]" datetime={pubDate.toISOString()}>
+          {t(lang, 'blog.published')} {dateStr}
+        </time>
+      </div>
+      <h1 class="font-serif text-3xl md:text-4xl font-bold text-[var(--color-text)] leading-tight">{title}</h1>
+    </header>
+
+    <div class="prose prose-lg max-w-none prose-headings:font-serif prose-a:text-[var(--color-terracotta)]">
+      <slot />
+    </div>
+  </article>
+
+  <CtaBanner
+    lang={lang}
+    headline={lang === 'fr' ? 'Prêt à maximiser vos revenus Airbnb ?' : 'Ready to maximise your Airbnb income?'}
+  />
+</PageLayout>

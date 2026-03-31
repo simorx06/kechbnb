@@ -1,0 +1,94 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import PortfolioGallery from '../../components/sections/PortfolioGallery.astro';
+import CtaBanner from '../../components/ui/CtaBanner.astro';
+import portfolioData from '../../data/portfolio.json';
+import { t } from '../../i18n/utils';
+
+const lang = 'fr' as const;
+
+// Resolve all portfolio images at build time using import.meta.glob
+const imageFiles = import.meta.glob<{ default: ImageMetadata }>(
+  '../../assets/images/portfolio/*.jpg',
+  { eager: true }
+);
+
+// Build items array with resolved src
+const items = portfolioData
+  .map(item => {
+    const key = `../../assets/images/portfolio/${item.file}`;
+    const resolved = imageFiles[key];
+    if (!resolved) return null;
+    return { ...item, src: resolved.default };
+  })
+  .filter((item): item is NonNullable<typeof item> => item !== null);
+---
+
+<PageLayout
+  title={t(lang, 'portfolio.page-title')}
+  description={t(lang, 'portfolio.meta-description')}
+  lang={lang}
+>
+  <!-- Page intro (light) -->
+  <div class="portfolio-intro">
+    <div class="portfolio-intro-inner">
+      <p class="portfolio-eyebrow" aria-hidden="true">— KechBnb —</p>
+      <h1 class="portfolio-heading">{t(lang, 'portfolio.headline')}</h1>
+      <div class="portfolio-rule" aria-hidden="true"></div>
+      <p class="portfolio-body">{t(lang, 'portfolio.intro')}</p>
+    </div>
+  </div>
+
+  <PortfolioGallery lang={lang} items={items} />
+
+  <CtaBanner lang={lang} headline={t(lang, 'portfolio.cta')} />
+</PageLayout>
+
+<style>
+  .portfolio-intro {
+    background: var(--color-offwhite);
+    padding: 4rem 1.25rem 3rem;
+    border-bottom: 1px solid #e8e2d9;
+  }
+
+  .portfolio-intro-inner {
+    max-width: 680px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .portfolio-eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    margin: 0 0 1rem;
+  }
+
+  .portfolio-heading {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--color-text);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin: 0 0 1rem;
+  }
+
+  .portfolio-rule {
+    width: 3rem;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+    margin: 0 auto 1.25rem;
+  }
+
+  .portfolio-body {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    color: #6b7280;
+    line-height: 1.7;
+    margin: 0;
+  }
+</style>

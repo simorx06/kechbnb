@@ -1,0 +1,77 @@
+[
+  {
+    "id": "listing",
+    "icon": "camera",
+    "title": { "fr": "Création d'annonce", "en": "Listing Creation" },
+    "description": {
+      "fr": "Nous créons et optimisons votre annonce Airbnb avec des photos professionnelles, des textes percutants et une stratégie de mots-clés pour maximiser votre visibilité.",
+      "en": "We create and optimise your Airbnb listing with professional photos, compelling descriptions and a keyword strategy to maximise your visibility."
+    },
+    "order": 1
+  },
+  {
+    "id": "communication",
+    "icon": "chat",
+    "title": { "fr": "Communication invités", "en": "Guest Communication" },
+    "description": {
+      "fr": "Nous gérons toutes les communications avec vos invités : réponses aux questions, accueil, check-in, check-out et gestion des avis. Disponible 7j/7.",
+      "en": "We handle all guest communications: answering questions, welcoming guests, check-in, check-out and review management. Available 7 days a week."
+    },
+    "order": 2
+  },
+  {
+    "id": "cleaning",
+    "icon": "sparkles",
+    "title": { "fr": "Coordination ménage", "en": "Cleaning Coordination" },
+    "description": {
+      "fr": "Notre équipe de ménage professionnelle intervient après chaque départ pour préparer votre bien à l'accueil des prochains invités.",
+      "en": "Our professional cleaning team visits after every checkout to prepare your property for the next guests."
+    },
+    "teamPhoto": "team-cleaning.jpg",
+    "teamPhotoAlt": {
+      "fr": "Notre équipe de nettoyage prend soin de votre bien",
+      "en": "Our cleaning team taking care of your property"
+    },
+    "order": 3
+  },
+  {
+    "id": "pricing",
+    "icon": "chart-bar",
+    "title": { "fr": "Tarification dynamique", "en": "Dynamic Pricing" },
+    "description": {
+      "fr": "Nous ajustons vos tarifs en temps réel en fonction de la demande, des événements locaux et de la saisonnalité pour maximiser vos revenus.",
+      "en": "We adjust your rates in real time based on demand, local events and seasonality to maximise your revenue."
+    },
+    "order": 4
+  },
+  {
+    "id": "maintenance",
+    "icon": "wrench",
+    "title": { "fr": "Suivi maintenance", "en": "Maintenance Follow-up" },
+    "description": {
+      "fr": "Nous coordonnons les interventions de maintenance et de réparation avec nos artisans de confiance à Marrakech pour garder votre bien en parfait état.",
+      "en": "We coordinate maintenance and repair work with our trusted craftsmen in Marrakech to keep your property in perfect condition."
+    },
+    "teamPhoto": "team-electrician.jpg",
+    "teamPhotoAlt": {
+      "fr": "Notre équipe de maintenance intervient rapidement",
+      "en": "Our maintenance team responds quickly"
+    },
+    "order": 5
+  },
+  {
+    "id": "design",
+    "icon": "paint-brush",
+    "title": { "fr": "Décoration intérieure", "en": "Interior Design" },
+    "description": {
+      "fr": "Notre service de décoration intérieure transforme votre bien pour qu'il se démarque sur Airbnb. Mise en scène, sélection du mobilier et shooting photo professionnel inclus.",
+      "en": "Our interior design service transforms your property so it stands out on Airbnb. Staging, furniture selection and professional photo shoot included."
+    },
+    "teamPhoto": "team-garden.jpg",
+    "teamPhotoAlt": {
+      "fr": "Notre équipe s'occupe de l'entretien extérieur",
+      "en": "Our team takes care of outdoor maintenance"
+    },
+    "order": 6
+  }
+]

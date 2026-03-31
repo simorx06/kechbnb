@@ -1,0 +1,455 @@
+---
+import { t } from '../../i18n/utils';
+
+interface Props {
+  lang: 'fr' | 'en';
+  formspreeId?: string;
+}
+
+const { lang, formspreeId = 'YOUR_FORMSPREE_ID' } = Astro.props;
+const formAction = `https://formspree.io/f/${formspreeId}`;
+---
+
+<form
+  id="contact-form"
+  action={formAction}
+  method="POST"
+  class="contact-form"
+  novalidate
+  aria-label={lang === 'fr' ? 'Formulaire de contact' : 'Contact form'}
+>
+  <!-- Hidden fields for Formspree -->
+  <input type="hidden" name="_language" value={lang} />
+  <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off" />
+
+  <!-- Success message (hidden by default) -->
+  <div id="form-success" class="form-success" role="alert" aria-live="polite" hidden>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+      <path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75 11.25 15 15 9.75M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+    </svg>
+    <p>{t(lang, 'contact.form.success')}</p>
+  </div>
+
+  <!-- Error message (hidden by default) -->
+  <div id="form-error" class="form-error-msg" role="alert" aria-live="polite" hidden>
+    <p>{t(lang, 'contact.form.error')}</p>
+  </div>
+
+  <!-- Row 1: Name + Phone -->
+  <div class="form-row">
+    <div class="form-field">
+      <label for="field-name" class="form-label">
+        {t(lang, 'contact.form.name')}
+        <span class="required" aria-label={lang === 'fr' ? 'obligatoire' : 'required'}>*</span>
+      </label>
+      <input
+        type="text"
+        id="field-name"
+        name="name"
+        autocomplete="name"
+        required
+        aria-required="true"
+        class="form-input"
+        placeholder={lang === 'fr' ? 'Votre nom complet' : 'Your full name'}
+      />
+      <span class="field-error" role="alert" data-error="name">{t(lang, 'contact.form.error-required')}</span>
+    </div>
+
+    <div class="form-field">
+      <label for="field-phone" class="form-label">
+        {t(lang, 'contact.form.phone')}
+        <span class="required" aria-label={lang === 'fr' ? 'obligatoire' : 'required'}>*</span>
+      </label>
+      <input
+        type="tel"
+        id="field-phone"
+        name="phone"
+        autocomplete="tel"
+        required
+        aria-required="true"
+        class="form-input"
+        placeholder="+212 6 XX XX XX XX"
+      />
+      <span class="field-error" role="alert" data-error="phone">{t(lang, 'contact.form.error-required')}</span>
+    </div>
+  </div>
+
+  <!-- Row 2: Email -->
+  <div class="form-field">
+    <label for="field-email" class="form-label">
+      {t(lang, 'contact.form.email')}
+      <span class="required" aria-label={lang === 'fr' ? 'obligatoire' : 'required'}>*</span>
+    </label>
+    <input
+      type="email"
+      id="field-email"
+      name="email"
+      autocomplete="email"
+      required
+      aria-required="true"
+      class="form-input"
+      placeholder={lang === 'fr' ? 'votre@email.com' : 'your@email.com'}
+    />
+    <span class="field-error" role="alert" data-error="email">{t(lang, 'contact.form.error-email')}</span>
+  </div>
+
+  <!-- Row 3: Neighborhood + Num properties -->
+  <div class="form-row">
+    <div class="form-field">
+      <label for="field-neighborhood" class="form-label">
+        {t(lang, 'contact.form.neighborhood')}
+      </label>
+      <input
+        type="text"
+        id="field-neighborhood"
+        name="neighborhood"
+        class="form-input"
+        placeholder={lang === 'fr' ? 'Médina, Guéliz, Hivernage…' : 'Medina, Gueliz, Hivernage…'}
+      />
+    </div>
+
+    <div class="form-field">
+      <label for="field-num-properties" class="form-label">
+        {t(lang, 'contact.form.num-properties')}
+      </label>
+      <select id="field-num-properties" name="num_properties" class="form-input form-select">
+        <option value="">{lang === 'fr' ? 'Sélectionner' : 'Select'}</option>
+        <option value="1">1</option>
+        <option value="2-3">2–3</option>
+        <option value="4+">4+</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Message -->
+  <div class="form-field">
+    <label for="field-message" class="form-label">
+      {t(lang, 'contact.form.message')}
+    </label>
+    <textarea
+      id="field-message"
+      name="message"
+      rows="4"
+      class="form-input form-textarea"
+      placeholder={lang === 'fr'
+        ? 'Dites-nous en plus sur votre bien (type, surface, état…)'
+        : 'Tell us more about your property (type, size, condition…)'}
+    ></textarea>
+  </div>
+
+  <!-- Submit -->
+  <div class="form-submit">
+    <button type="submit" class="submit-btn" id="submit-btn">
+      <span class="submit-label">{t(lang, 'contact.form.submit')}</span>
+      <span class="submit-spinner" aria-hidden="true" hidden>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 12a9 9 0 1 1-6.219-8.56" stroke-linecap="round"/>
+        </svg>
+      </span>
+      <svg class="submit-arrow" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3" />
+      </svg>
+    </button>
+    <p class="form-privacy">
+      {lang === 'fr'
+        ? 'Vos données sont confidentielles. Nous vous répondons sous 24h.'
+        : 'Your data is confidential. We reply within 24 hours.'}
+    </p>
+  </div>
+</form>
+
+<style>
+  .contact-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+  }
+
+  /* Success / error banners */
+  .form-success,
+  .form-error-msg {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding: 1rem 1.25rem;
+    border-radius: var(--radius-brand, 12px);
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    line-height: 1.5;
+  }
+
+  .form-success {
+    background: rgba(34, 197, 94, 0.1);
+    border: 1px solid rgba(34, 197, 94, 0.3);
+    color: #166534;
+  }
+
+  .form-success svg {
+    color: #16a34a;
+    flex-shrink: 0;
+  }
+
+  .form-error-msg {
+    background: rgba(239, 68, 68, 0.08);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #991b1b;
+  }
+
+  .form-success p,
+  .form-error-msg p {
+    margin: 0;
+  }
+
+  /* Row layout */
+  .form-row {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 480px) {
+    .form-row {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+
+  /* Field */
+  .form-field {
+    display: flex;
+    flex-direction: column;
+    gap: 0.375rem;
+  }
+
+  .form-label {
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--color-text);
+    letter-spacing: 0.01em;
+  }
+
+  .required {
+    color: var(--color-terracotta);
+    margin-left: 0.2em;
+  }
+
+  /* Inputs */
+  .form-input {
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    color: var(--color-text);
+    background: #ffffff;
+    border: 1.5px solid #e5e0d8;
+    border-radius: 10px;
+    padding: 0.75rem 1rem;
+    min-height: 48px;
+    width: 100%;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  .form-input::placeholder {
+    color: #b8b0a4;
+  }
+
+  .form-input:focus {
+    border-color: var(--color-terracotta);
+    box-shadow: 0 0 0 3px rgba(196, 113, 74, 0.15);
+  }
+
+  .form-input:invalid:not(:placeholder-shown),
+  .form-input.touched:invalid {
+    border-color: #ef4444;
+  }
+
+  .form-select {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b7280' stroke-width='2'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' d='m19.5 8.25-7.5 7.5-7.5-7.5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 0.75rem center;
+    padding-right: 2.5rem;
+    cursor: pointer;
+  }
+
+  .form-textarea {
+    min-height: 110px;
+    resize: vertical;
+    line-height: 1.6;
+  }
+
+  /* Field errors */
+  .field-error {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    color: #dc2626;
+    display: none;
+  }
+
+  .form-field.has-error .field-error {
+    display: block;
+  }
+
+  .form-field.has-error .form-input {
+    border-color: #ef4444;
+  }
+
+  /* Submit */
+  .form-submit {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 0.25rem;
+  }
+
+  .submit-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.625rem;
+    background: var(--color-terracotta);
+    color: #ffffff;
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    padding: 0.9375rem 2rem;
+    border-radius: var(--radius-brand, 12px);
+    min-height: 52px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s ease, transform 0.15s ease, box-shadow 0.2s ease;
+    box-shadow: 0 4px 16px rgba(196, 113, 74, 0.3);
+    width: 100%;
+  }
+
+  .submit-btn:hover:not(:disabled) {
+    background: #b5623f;
+    box-shadow: 0 6px 24px rgba(196, 113, 74, 0.4);
+    transform: translateY(-1px);
+  }
+
+  .submit-btn:active:not(:disabled) {
+    transform: translateY(0);
+  }
+
+  .submit-btn:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+  .submit-arrow {
+    transition: transform 0.2s ease;
+  }
+
+  .submit-btn:hover .submit-arrow {
+    transform: translateX(3px);
+  }
+
+  .submit-spinner {
+    animation: spin 0.8s linear infinite;
+  }
+
+  @keyframes spin {
+    to { transform: rotate(360deg); }
+  }
+
+  .form-privacy {
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
+    color: #9ca3af;
+    text-align: center;
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  @media (min-width: 480px) {
+    .submit-btn {
+      width: auto;
+      align-self: flex-start;
+      min-width: 240px;
+    }
+  }
+</style>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const successMsg = document.getElementById('form-success');
+  const errorMsg = document.getElementById('form-error');
+  const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement | null;
+  const submitLabel = submitBtn?.querySelector('.submit-label');
+  const submitSpinner = submitBtn?.querySelector('.submit-spinner');
+  const submitArrow = submitBtn?.querySelector('.submit-arrow');
+
+  if (!form) throw new Error('Form not found');
+
+  // Add touched class on blur for inline validation
+  form.querySelectorAll('.form-input').forEach(input => {
+    input.addEventListener('blur', () => {
+      if ((input as HTMLInputElement).value !== '') {
+        input.classList.add('touched');
+      }
+    });
+  });
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    // Clear previous errors
+    form.querySelectorAll('.form-field').forEach(f => f.classList.remove('has-error'));
+    if (successMsg) successMsg.hidden = true;
+    if (errorMsg) errorMsg.hidden = true;
+
+    // Client-side validation
+    let hasErrors = false;
+    const requiredFields = form.querySelectorAll('[required]');
+    requiredFields.forEach(field => {
+      const input = field as HTMLInputElement;
+      const wrapper = input.closest('.form-field');
+      if (!input.value.trim()) {
+        wrapper?.classList.add('has-error');
+        hasErrors = true;
+      }
+    });
+
+    // Email validation
+    const emailField = form.querySelector('#field-email') as HTMLInputElement | null;
+    if (emailField && emailField.value && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailField.value)) {
+      emailField.closest('.form-field')?.classList.add('has-error');
+      hasErrors = true;
+    }
+
+    if (hasErrors) return;
+
+    // Submit to Formspree
+    if (submitBtn) submitBtn.disabled = true;
+    if (submitLabel) (submitLabel as HTMLElement).style.display = 'none';
+    if (submitSpinner) (submitSpinner as HTMLElement).hidden = false;
+    if (submitArrow) (submitArrow as HTMLElement).style.display = 'none';
+
+    try {
+      const data = new FormData(form);
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: data,
+        headers: { Accept: 'application/json' },
+      });
+
+      if (response.ok) {
+        form.reset();
+        if (successMsg) {
+          successMsg.hidden = false;
+          successMsg.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+      } else {
+        if (errorMsg) errorMsg.hidden = false;
+      }
+    } catch {
+      if (errorMsg) errorMsg.hidden = false;
+    } finally {
+      if (submitBtn) submitBtn.disabled = false;
+      if (submitLabel) (submitLabel as HTMLElement).style.display = '';
+      if (submitSpinner) (submitSpinner as HTMLElement).hidden = true;
+      if (submitArrow) (submitArrow as HTMLElement).style.display = '';
+    }
+  });
+</script>

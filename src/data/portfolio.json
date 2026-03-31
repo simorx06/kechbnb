@@ -1,0 +1,101 @@
+[
+  {
+    "id": "riad-1-salon",
+    "file": "riad-1-salon.jpg",
+    "caption": {
+      "fr": "Salon riad aux volumes généreux — zellige traditionnel et mobilier contemporain",
+      "en": "Riad living room with generous volumes — traditional zellige and contemporary furniture"
+    },
+    "order": 1
+  },
+  {
+    "id": "riad-1-terrasse",
+    "file": "riad-1-terrasse.jpg",
+    "caption": {
+      "fr": "Terrasse panoramique avec vue sur les toits de la Médina",
+      "en": "Panoramic terrace overlooking the Medina rooftops"
+    },
+    "order": 2
+  },
+  {
+    "id": "appart-1-salon",
+    "file": "appart-1-salon.jpg",
+    "caption": {
+      "fr": "Séjour épuré aux tonalités chaudes — harmonie entre modernité et artisanat local",
+      "en": "Pared-back living space in warm tones — a balance of modernity and local craftsmanship"
+    },
+    "order": 3
+  },
+  {
+    "id": "riad-1-chambre",
+    "file": "riad-1-chambre.jpg",
+    "caption": {
+      "fr": "Suite parentale du riad — linge de qualité hôtelière et lumière tamisée",
+      "en": "Riad master suite — hotel-quality linen and soft lighting"
+    },
+    "order": 4
+  },
+  {
+    "id": "appart-2-salon",
+    "file": "appart-2-salon.jpg",
+    "caption": {
+      "fr": "Espace de vie lumineux — sélection de textiles berbères et palettes ocre",
+      "en": "Light-filled living area — curated Berber textiles and ochre palette"
+    },
+    "order": 5
+  },
+  {
+    "id": "appart-1-chambre",
+    "file": "appart-1-chambre.jpg",
+    "caption": {
+      "fr": "Chambre cocooning aux accents terrasse — chaque détail pensé pour le confort invité",
+      "en": "Cocooning bedroom with terracotta accents — every detail designed for guest comfort"
+    },
+    "order": 6
+  },
+  {
+    "id": "appart-3-salon",
+    "file": "appart-3-salon.jpg",
+    "caption": {
+      "fr": "Salon moderne avec touches artisanales — plateau de cuivre et coussins brodés",
+      "en": "Modern living room with artisanal touches — copper tray and embroidered cushions"
+    },
+    "order": 7
+  },
+  {
+    "id": "appart-1-cuisine",
+    "file": "appart-1-cuisine.jpg",
+    "caption": {
+      "fr": "Cuisine entièrement équipée et mise en scène — propre à séduire les voyageurs exigeants",
+      "en": "Fully equipped and styled kitchen — perfectly presented for discerning travellers"
+    },
+    "order": 8
+  },
+  {
+    "id": "appart-2-chambre",
+    "file": "appart-2-chambre.jpg",
+    "caption": {
+      "fr": "Chambre minimaliste — tête de lit artisanale et literie blanche immaculée",
+      "en": "Minimalist bedroom — handcrafted headboard and immaculate white bedding"
+    },
+    "order": 9
+  },
+  {
+    "id": "appart-3-chambre",
+    "file": "appart-3-chambre.jpg",
+    "caption": {
+      "fr": "Suite secondaire — fenêtre en plein cintre, rideaux lin et détails dorés",
+      "en": "Second suite — arched window, linen curtains and gold details"
+    },
+    "order": 10
+  },
+  {
+    "id": "appart-3-cuisine",
+    "file": "appart-3-cuisine.jpg",
+    "caption": {
+      "fr": "Cuisine ouverte aux lignes nettes — îlot central et carrelage géométrique",
+      "en": "Open-plan kitchen with clean lines — central island and geometric tiling"
+    },
+    "order": 11
+  }
+]

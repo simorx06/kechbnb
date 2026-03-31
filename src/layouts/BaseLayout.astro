@@ -1,0 +1,133 @@
+---
+import '../../styles/tokens.css';
+import { getLangFromUrl, getAlternateLang, getLocalePath, pageSlugMap } from '../i18n/utils';
+
+interface Props {
+  title: string;
+  description: string;
+  lang?: 'fr' | 'en';
+  ogImage?: string;
+  canonicalUrl?: string;
+}
+
+const { title, description, lang, ogImage, canonicalUrl } = Astro.props;
+const currentLang = lang ?? getLangFromUrl(Astro.url);
+const alternateLang = getAlternateLang(currentLang);
+const siteUrl = Astro.site ?? new URL('https://kechbnb.com');
+const canonical = canonicalUrl ?? Astro.url.href;
+// og-default.svg is a placeholder — replace with a real 1200×630 JPEG before launch
+const ogImg = ogImage ? `${siteUrl.origin}${ogImage}` : `${siteUrl.origin}/og-default.svg`;
+
+// JSON-LD: LocalBusiness + WebSite (site-wide)
+const localBusinessSchema = {
+  '@context': 'https://schema.org',
+  '@graph': [
+    {
+      '@type': 'LocalBusiness',
+      '@id': `${siteUrl.origin}/#business`,
+      name: 'KechBnb',
+      description: currentLang === 'fr'
+        ? 'Gestion complète de propriétés Airbnb à Marrakech — annonces, invités, ménage, tarification dynamique et décoration intérieure.'
+        : 'Full-service Airbnb property management in Marrakech — listings, guests, cleaning, dynamic pricing and interior design.',
+      url: siteUrl.origin,
+      telephone: '+212522000000',
+      email: 'contact@kechbnb.com',
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: 'Marrakech',
+        addressLocality: 'Marrakech',
+        addressCountry: 'MA',
+      },
+      geo: {
+        '@type': 'GeoCoordinates',
+        latitude: 31.6295,
+        longitude: -7.9811,
+      },
+      priceRange: '20% commission',
+      areaServed: { '@type': 'City', name: 'Marrakech' },
+      sameAs: [],
+    },
+    {
+      '@type': 'WebSite',
+      '@id': `${siteUrl.origin}/#website`,
+      url: siteUrl.origin,
+      name: 'KechBnb',
+      inLanguage: [currentLang === 'fr' ? 'fr-MA' : 'en-US'],
+    },
+  ],
+};
+
+// Compute alternate URL with slug remapping for pages with different FR/EN paths
+const slugRemap: Record<string, string> = {
+  '/fr/comment-ca-marche': '/en/how-it-works',
+  '/en/how-it-works': '/fr/comment-ca-marche',
+  '/fr/decoration-interieure': '/en/interior-design',
+  '/en/interior-design': '/fr/decoration-interieure',
+};
+const currentPathClean = Astro.url.pathname.replace(/\/$/, '') || '/';
+const altPathname = slugRemap[currentPathClean]
+  ?? Astro.url.pathname.replace(`/${currentLang}/`, `/${alternateLang}/`).replace(`/${currentLang}`, `/${alternateLang}`);
+const alternateHref = `${siteUrl.origin}${altPathname}`;
+---
+
+<!doctype html>
+<html lang={currentLang}>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+
+    <!-- Canonical -->
+    <link rel="canonical" href={canonical} />
+
+    <!-- Alternate languages (hreflang) -->
+    <link rel="alternate" hreflang={currentLang} href={Astro.url.href} />
+    <link rel="alternate" hreflang={alternateLang} href={alternateHref} />
+    <link rel="alternate" hreflang="x-default" href={`${siteUrl.origin}/fr${currentPathClean.replace(`/${currentLang}`, '')}`} />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImg} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content={currentLang === 'fr' ? 'fr_MA' : 'en_US'} />
+    <meta property="og:site_name" content="KechBnb" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImg} />
+
+    <!-- JSON-LD Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(localBusinessSchema)} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- Google Fonts: Outfit + Manrope + Newsreader + Cedarville Cursive -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Manrope:wght@400;500;600&family=Newsreader:ital,wght@1,400;1,500&family=Cedarville+Cursive&display=swap" rel="stylesheet" />
+
+    <!-- Inline language preference script (≤200 bytes) -->
+    <script is:inline>
+      (function(){
+        var s=localStorage.getItem('kechbnb_lang');
+        var p=location.pathname;
+        if(s&&!p.startsWith('/'+s)){
+          var np=p.replace(/^\/(fr|en)/,'/'+s);
+          if(np!==p)location.replace(np);
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <a href="#main-content" class="skip-link">{currentLang === 'fr' ? 'Aller au contenu principal' : 'Skip to main content'}</a>
+    <slot />
+  </body>
+</html>

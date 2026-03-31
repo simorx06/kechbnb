@@ -1,0 +1,340 @@
+---
+import PageLayout from '../../layouts/PageLayout.astro';
+import ServicesGrid from '../../components/sections/ServicesGrid.astro';
+import CtaBanner from '../../components/ui/CtaBanner.astro';
+import Icon from '../../components/ui/Icon.astro';
+import { Image } from 'astro:assets';
+import services from '../../data/services.json';
+import { t } from '../../i18n/utils';
+
+const lang = 'fr' as const;
+
+// Services that have team photos
+const teamServices = services.filter(s => s.teamPhoto);
+
+// Import team images
+import teamCleaning from '../../assets/images/team/team-cleaning.jpg';
+import teamElectrician from '../../assets/images/team/team-electrician.jpg';
+import teamGarden from '../../assets/images/team/team-garden.jpg';
+
+const teamPhotos: Record<string, ImageMetadata> = {
+  'team-cleaning.jpg': teamCleaning,
+  'team-electrician.jpg': teamElectrician,
+  'team-garden.jpg': teamGarden,
+};
+---
+
+<PageLayout
+  title={t(lang, 'services.page-title')}
+  description={t(lang, 'services.meta-description')}
+  lang={lang}
+>
+  <!-- Page header -->
+  <div class="page-header">
+    <div class="page-header-inner">
+      <p class="page-eyebrow" aria-hidden="true">— KechBnb —</p>
+      <h1 class="page-heading">{t(lang, 'services.headline')}</h1>
+      <div class="page-rule" aria-hidden="true"></div>
+      <p class="page-intro">{t(lang, 'services.intro')}</p>
+    </div>
+  </div>
+
+  <!-- Services grid -->
+  <ServicesGrid lang={lang} services={services} />
+
+  <!-- Team photos section -->
+  {teamServices.length > 0 && (
+    <section class="team-section" aria-labelledby="team-heading">
+      <div class="team-container">
+        <h2 id="team-heading" class="team-heading">Notre équipe sur le terrain</h2>
+        <div class="team-rule" aria-hidden="true"></div>
+        <p class="team-intro">Des professionnels de confiance qui interviennent directement dans vos biens pour garantir une qualité irréprochable.</p>
+
+        <div class="team-grid">
+          {teamServices.map(service => {
+            const photo = teamPhotos[service.teamPhoto!];
+            if (!photo) return null;
+            return (
+              <div class="team-card">
+                <div class="team-img-wrap">
+                  <Image
+                    src={photo}
+                    alt={service.teamPhotoAlt![lang]}
+                    width={600}
+                    height={400}
+                    format="webp"
+                    quality={80}
+                    loading="lazy"
+                    class="team-img"
+                  />
+                  <div class="team-img-overlay"></div>
+                </div>
+                <div class="team-card-content">
+                  <div class="team-icon" aria-hidden="true">
+                    <Icon name={service.icon} size={20} />
+                  </div>
+                  <h3 class="team-service-title">{service.title[lang]}</h3>
+                  <p class="team-service-desc">{service.description[lang]}</p>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- Commission block -->
+  <div class="commission-block">
+    <div class="commission-inner">
+      <div class="commission-badge" aria-label="Commission">
+        <span>20%</span>
+      </div>
+      <div class="commission-text-wrap">
+        <h2 class="commission-title">Tout inclus dans une seule commission</h2>
+        <p class="commission-body">{t(lang, 'services.commission-note')}</p>
+      </div>
+    </div>
+  </div>
+
+  <CtaBanner lang={lang} headline={t(lang, 'services.cta')} />
+</PageLayout>
+
+<style>
+  /* Page header */
+  .page-header {
+    background: var(--color-offwhite);
+    padding: 4rem 1.25rem 2rem;
+    border-bottom: 1px solid #e8e2d9;
+  }
+
+  .page-header-inner {
+    max-width: 700px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .page-eyebrow {
+    font-family: var(--font-sans);
+    font-size: 0.6875rem;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--color-gold);
+    margin: 0 0 1rem;
+  }
+
+  .page-heading {
+    font-family: var(--font-serif);
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--color-text);
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin: 0 0 1rem;
+  }
+
+  .page-rule {
+    width: 3rem;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+    margin: 0 auto 1.25rem;
+  }
+
+  .page-intro {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    color: #6b7280;
+    line-height: 1.7;
+    margin: 0;
+  }
+
+  /* Team section */
+  .team-section {
+    background: #ffffff;
+    padding: 5rem 1.25rem;
+  }
+
+  .team-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .team-heading {
+    font-family: var(--font-serif);
+    font-size: clamp(1.75rem, 3vw, 2.25rem);
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 0 0 1rem;
+  }
+
+  .team-rule {
+    width: 3rem;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+    margin: 0 auto 1.25rem;
+  }
+
+  .team-intro {
+    font-family: var(--font-sans);
+    font-size: 1rem;
+    color: #6b7280;
+    line-height: 1.7;
+    max-width: 600px;
+    margin: 0 auto 3rem;
+  }
+
+  .team-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    text-align: left;
+  }
+
+  @media (min-width: 640px) {
+    .team-grid {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .team-grid {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .team-card {
+    border-radius: 16px;
+    overflow: hidden;
+    background: var(--color-offwhite);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+    transition: box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .team-card:hover {
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+  }
+
+  .team-img-wrap {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    overflow: hidden;
+  }
+
+  .team-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .team-card:hover .team-img {
+    transform: scale(1.04);
+  }
+
+  .team-img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, transparent 50%, rgba(0,0,0,0.25) 100%);
+  }
+
+  .team-card-content {
+    padding: 1.25rem 1.5rem 1.5rem;
+  }
+
+  .team-icon {
+    color: var(--color-terracotta);
+    margin-bottom: 0.5rem;
+  }
+
+  .team-service-title {
+    font-family: var(--font-serif);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 0 0 0.5rem;
+  }
+
+  .team-service-desc {
+    font-family: var(--font-sans);
+    font-size: 0.875rem;
+    color: #6b7280;
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* Commission block */
+  .commission-block {
+    background: var(--color-offwhite);
+    padding: 3rem 1.25rem;
+    border-top: 1px solid #e8e2d9;
+    border-bottom: 1px solid #e8e2d9;
+  }
+
+  .commission-inner {
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    text-align: center;
+  }
+
+  @media (min-width: 640px) {
+    .commission-inner {
+      text-align: left;
+      justify-content: flex-start;
+    }
+  }
+
+  .commission-badge {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-terracotta), #b5623f);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    box-shadow: 0 4px 20px rgba(196, 113, 74, 0.35);
+  }
+
+  .commission-badge span {
+    font-family: var(--font-serif);
+    font-size: 1.375rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: -0.02em;
+  }
+
+  .commission-title {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--color-text);
+    margin: 0 0 0.5rem;
+  }
+
+  .commission-body {
+    font-family: var(--font-sans);
+    font-size: 0.9375rem;
+    color: #6b7280;
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .team-card,
+    .team-img {
+      transition: none;
+    }
+    .team-card:hover {
+      transform: none;
+    }
+  }
+</style>

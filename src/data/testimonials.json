@@ -1,0 +1,35 @@
+[
+  {
+    "id": "testimonial-1",
+    "name": "Karim B.",
+    "propertyType": { "fr": "Riad, Médina", "en": "Riad, Medina" },
+    "quote": {
+      "fr": "En six mois, mon taux d'occupation est passé de 40% à 85%. KechBnb gère tout — je reçois juste mon virement mensuel. C'est exactement ce que je cherchais.",
+      "en": "In six months, my occupancy rate went from 40% to 85%. KechBnb handles everything — I just receive my monthly transfer. Exactly what I was looking for."
+    },
+    "result": { "fr": "+112% de revenus", "en": "+112% revenue" },
+    "order": 1
+  },
+  {
+    "id": "testimonial-2",
+    "name": "Sophie M.",
+    "propertyType": { "fr": "Appartement, Guéliz", "en": "Apartment, Gueliz" },
+    "quote": {
+      "fr": "La décoration que l'équipe a réalisée a transformé mon appartement. Les photos sont superbes et les réservations ont décollé dès la première semaine de mise en ligne.",
+      "en": "The decoration the team created transformed my apartment. The photos are stunning and bookings took off from the very first week online."
+    },
+    "result": { "fr": "Complet dès le 1er mois", "en": "Fully booked month 1" },
+    "order": 2
+  },
+  {
+    "id": "testimonial-3",
+    "name": "Youssef A.",
+    "propertyType": { "fr": "2 appartements, Hivernage", "en": "2 apartments, Hivernage" },
+    "quote": {
+      "fr": "J'avais peur de déléguer la gestion de mes deux biens, mais KechBnb m'a rassuré dès le début. Communication transparente, revenus réguliers et zéro stress.",
+      "en": "I was worried about delegating management of my two properties, but KechBnb reassured me from day one. Transparent communication, steady earnings and zero stress."
+    },
+    "result": { "fr": "87% taux d'occupation", "en": "87% occupancy rate" },
+    "order": 3
+  }
+]

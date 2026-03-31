@@ -1,0 +1,319 @@
+---
+interface Testimonial {
+  id: string;
+  name: string;
+  propertyType: { fr: string; en: string };
+  quote: { fr: string; en: string };
+  result: { fr: string; en: string };
+  order: number;
+}
+
+interface Props {
+  lang: 'fr' | 'en';
+  testimonials: Testimonial[];
+}
+
+const { lang, testimonials } = Astro.props;
+const sorted = [...testimonials].sort((a, b) => a.order - b.order);
+
+const tag     = lang === 'fr' ? 'Avis clients' : 'Client reviews';
+const heading = lang === 'fr' ? 'Ils nous font <em>confiance</em>' : 'They <em>trust</em> us';
+const disclaimer = lang === 'fr'
+  ? '* Témoignages représentatifs — données illustratives'
+  : '* Representative testimonials — illustrative data';
+---
+
+<section class="reviews-section" aria-labelledby="reviews-heading">
+  <!-- Decorative circles -->
+  <div class="deco deco-1" aria-hidden="true"></div>
+  <div class="deco deco-2" aria-hidden="true"></div>
+
+  <div class="reviews-inner">
+    <!-- Header -->
+    <div class="reviews-header">
+      <p class="section-tag" style="color: rgba(255,255,255,0.55)">{tag}</p>
+      <h2 id="reviews-heading" class="reviews-heading" set:html={heading}></h2>
+      <p class="reviews-sub">
+        {lang === 'fr'
+          ? 'Des propriétaires qui ont transformé leur bien en source de revenus réguliers.'
+          : 'Property owners who turned their asset into a steady income stream.'}
+      </p>
+    </div>
+
+    <!-- Cards track -->
+    <div class="reviews-track-wrap">
+      <div class="reviews-track" role="list" aria-label={lang === 'fr' ? 'Avis clients' : 'Client reviews'}>
+        {sorted.map((t) => (
+          <div class="review-card" role="listitem">
+            <!-- Stars -->
+            <div class="stars" aria-label="5 étoiles">
+              {[...Array(5)].map(() => (
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                  <path d="M10.788 3.21c.448-1.077 1.976-1.077 2.424 0l2.082 5.006 5.404.434c1.164.093 1.636 1.545.749 2.305l-4.117 3.527 1.257 5.273c.271 1.136-.964 2.033-1.96 1.425L12 18.354 7.373 21.18c-.996.608-2.231-.29-1.96-1.425l1.257-5.273-4.117-3.527c-.887-.76-.415-2.212.749-2.305l5.404-.434 2.082-5.005Z" />
+                </svg>
+              ))}
+            </div>
+
+            <!-- Quote -->
+            <blockquote class="review-quote">
+              <p>"{t.quote[lang]}"</p>
+            </blockquote>
+
+            <!-- Result badge -->
+            <div class="review-badge">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+              </svg>
+              {t.result[lang]}
+            </div>
+
+            <!-- Author -->
+            <footer class="review-author">
+              <div class="author-avatar" aria-hidden="true">{t.name.charAt(0)}</div>
+              <div>
+                <cite class="author-name">{t.name}</cite>
+                <span class="author-type">{t.propertyType[lang]}</span>
+              </div>
+            </footer>
+          </div>
+        ))}
+      </div>
+    </div>
+
+    <p class="reviews-disclaimer">{disclaimer}</p>
+  </div>
+</section>
+
+<style>
+  .reviews-section {
+    position: relative;
+    background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-dark) 60%, #0d1f27 100%);
+    padding: var(--space-xl) 1.5rem var(--space-l);
+    overflow: hidden;
+  }
+
+  /* Decorative circles */
+  .deco {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+
+  .deco-1 {
+    width: 600px;
+    height: 600px;
+    top: -200px;
+    right: -100px;
+    background: rgba(var(--color-accent-rgb), 0.06);
+    animation: rotateGradient 20s linear infinite;
+  }
+
+  .deco-2 {
+    width: 400px;
+    height: 400px;
+    bottom: -100px;
+    left: -80px;
+    background: rgba(var(--color-white-rgb), 0.03);
+  }
+
+  @keyframes rotateGradient {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+  }
+
+  .reviews-inner {
+    position: relative;
+    z-index: 1;
+    max-width: var(--max-width);
+    margin: 0 auto;
+  }
+
+  /* ── Header ── */
+  .reviews-header {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto var(--space-m);
+  }
+
+  .reviews-heading {
+    font-family: var(--font-outfit);
+    font-size: clamp(2rem, 4vw + 0.5rem, 3.25rem);
+    font-weight: 600;
+    color: #ffffff;
+    line-height: 1.1;
+    margin: 0 0 1rem;
+  }
+
+  .reviews-heading em {
+    font-family: var(--font-newsreader);
+    font-style: italic;
+    color: var(--color-accent);
+  }
+
+  .reviews-sub {
+    font-family: var(--font-manrope);
+    font-size: 1.0625rem;
+    color: rgba(var(--color-white-rgb), 0.65);
+    line-height: 1.65;
+    margin: 0;
+  }
+
+  /* ── Track ── */
+  .reviews-track-wrap {
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    margin: 0 -1.5rem;
+    padding: 0 1.5rem;
+  }
+
+  .reviews-track-wrap::-webkit-scrollbar { display: none; }
+
+  .reviews-track {
+    display: flex;
+    gap: 1.25rem;
+    padding: 0.5rem 0 1.5rem;
+    scroll-snap-type: x mandatory;
+    width: max-content;
+  }
+
+  /* ── Card ── */
+  .review-card {
+    background: rgba(var(--color-white-rgb), 0.05);
+    border: 1px solid rgba(var(--color-primary-rgb), 0.5);
+    border-radius: var(--radius-card);
+    padding: 2rem 1.75rem;
+    min-width: min(85vw, 340px);
+    max-width: 340px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    gap: 1.125rem;
+    backdrop-filter: blur(10px);
+    transition: border-color var(--transition-base), box-shadow var(--transition-base);
+  }
+
+  .review-card:hover {
+    border-color: rgba(var(--color-accent-rgb), 0.5);
+    box-shadow: 0 8px 30px rgba(var(--color-accent-rgb), 0.12);
+  }
+
+  /* Stars */
+  .stars {
+    display: flex;
+    gap: 3px;
+    color: var(--color-star);
+  }
+
+  /* Quote */
+  .review-quote {
+    margin: 0;
+    flex: 1;
+  }
+
+  .review-quote p {
+    font-family: var(--font-manrope);
+    font-size: 0.9375rem;
+    color: rgba(var(--color-white-rgb), 0.85);
+    line-height: 1.7;
+    margin: 0;
+    font-style: italic;
+  }
+
+  /* Result badge */
+  .review-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(var(--color-accent-rgb), 0.15);
+    border: 1px solid rgba(var(--color-accent-rgb), 0.3);
+    color: #ff9a6c;
+    font-family: var(--font-outfit);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: var(--radius-full);
+    align-self: flex-start;
+  }
+
+  /* Author */
+  .review-author {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    padding-top: 0.875rem;
+    border-top: 1px solid rgba(var(--color-white-rgb), 0.08);
+  }
+
+  .author-avatar {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, var(--color-primary-light), var(--color-accent));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-outfit);
+    font-size: 1rem;
+    font-weight: 600;
+    color: #ffffff;
+    flex-shrink: 0;
+    border: 2px solid rgba(var(--color-white-rgb), 0.15);
+  }
+
+  .author-name {
+    display: block;
+    font-family: var(--font-outfit);
+    font-size: 0.9375rem;
+    font-weight: 600;
+    color: #ffffff;
+    font-style: normal;
+    line-height: 1.3;
+  }
+
+  .author-type {
+    display: block;
+    font-family: var(--font-manrope);
+    font-size: 0.75rem;
+    color: rgba(var(--color-white-rgb), 0.5);
+    margin-top: 2px;
+  }
+
+  /* Disclaimer */
+  .reviews-disclaimer {
+    text-align: center;
+    font-family: var(--font-manrope);
+    font-size: 0.6875rem;
+    color: rgba(var(--color-white-rgb), 0.3);
+    margin: 0.5rem auto 0;
+    font-style: italic;
+  }
+
+  /* Desktop: 3-col grid */
+  @media (min-width: 900px) {
+    .reviews-track-wrap {
+      overflow: visible;
+      margin: 0;
+      padding: 0;
+    }
+
+    .reviews-track {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      width: auto;
+      scroll-snap-type: none;
+      padding: 0.5rem 0 0;
+    }
+
+    .review-card {
+      min-width: unset;
+      max-width: unset;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .review-card { transition: none; }
+    .deco-1 { animation: none; }
+  }
+</style>
