@@ -37,14 +37,14 @@ const sorted = [...articles].sort(
 
 <section class="blog-section" aria-labelledby="blog-heading">
   <!-- Header -->
-  <div class="blog-header">
+  <div class="blog-header" data-reveal>
     <p class="section-tag">{tag}</p>
     <h1 id="blog-heading" class="blog-heading" set:html={heading}></h1>
     <p class="blog-sub">{sub}</p>
   </div>
 
   <!-- Articles grid -->
-  <div class="blog-grid" role="list">
+  <div class="blog-grid" role="list" data-stagger data-stagger-delay="0.1">
     {sorted.map((article, i) => {
       const href = `/${lang}/blog/${article.id.replace(`${lang}/`, '')}`;
       const dateStr = article.data.pubDate.toLocaleDateString(
@@ -52,7 +52,7 @@ const sorted = [...articles].sort(
         { day: 'numeric', month: 'long', year: 'numeric' }
       );
       return (
-        <article class="blog-card" role="listitem" style={`animation-delay: ${i * 0.1}s`}>
+        <article class="blog-card" role="listitem" data-stagger-child>
 
           <!-- Image placeholder with gradient -->
           <a href={href} class="card-img-wrap" tabindex="-1" aria-hidden="true">
@@ -148,8 +148,6 @@ const sorted = [...articles].sort(
     overflow: hidden;
     display: flex;
     flex-direction: column;
-    opacity: 0;
-    animation: cardSlideIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     transition: transform var(--transition-base), box-shadow var(--transition-base);
   }
 
@@ -265,11 +263,6 @@ const sorted = [...articles].sort(
   }
 
   .card-readmore:hover { gap: 0.625rem; }
-
-  @keyframes cardSlideIn {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
 
   @media (prefers-reduced-motion: reduce) {
     .blog-card { animation: none; opacity: 1; transition: none; }

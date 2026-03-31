@@ -88,16 +88,16 @@ const plans = lang === 'fr'
 
 <section class="pricing-section" aria-labelledby="pricing-heading">
   <!-- Header -->
-  <div class="pricing-header">
+  <div class="pricing-header" data-reveal>
     <p class="section-tag">{tag}</p>
     <h2 id="pricing-heading" class="pricing-heading" set:html={heading}></h2>
     <p class="pricing-sub">{sub}</p>
   </div>
 
   <!-- Cards -->
-  <div class="pricing-grid">
+  <div class="pricing-grid" data-stagger data-stagger-delay="0.15">
     {plans.map((plan, i) => (
-      <div class={`pricing-card ${plan.recommended ? 'recommended' : ''}`} style={`animation-delay: ${i * 0.15}s`}>
+      <div class={`pricing-card ${plan.recommended ? 'recommended' : ''}`} data-stagger-child>
         {plan.recommended && (
           <div class="recommended-badge">
             {lang === 'fr' ? 'Recommandé' : 'Recommended'}
@@ -195,8 +195,6 @@ const plans = lang === 'fr'
     display: flex;
     flex-direction: column;
     gap: 1.125rem;
-    opacity: 0;
-    animation: cardSlideIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     transition: transform var(--transition-base), box-shadow var(--transition-base);
   }
 
@@ -341,12 +339,7 @@ const plans = lang === 'fr'
     color: #fff;
   }
 
-  @keyframes cardSlideIn {
-    from { opacity: 0; transform: translateY(24px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
   @media (prefers-reduced-motion: reduce) {
-    .pricing-card { animation: none; opacity: 1; transition: none; }
+    .pricing-card { transition: none; }
   }
 </style>

@@ -30,7 +30,7 @@ const disclaimer = lang === 'fr'
 
   <div class="reviews-inner">
     <!-- Header -->
-    <div class="reviews-header">
+    <div class="reviews-header" data-reveal>
       <p class="section-tag" style="color: rgba(255,255,255,0.55)">{tag}</p>
       <h2 id="reviews-heading" class="reviews-heading" set:html={heading}></h2>
       <p class="reviews-sub">
@@ -42,9 +42,9 @@ const disclaimer = lang === 'fr'
 
     <!-- Cards track -->
     <div class="reviews-track-wrap">
-      <div class="reviews-track" role="list" aria-label={lang === 'fr' ? 'Avis clients' : 'Client reviews'}>
+      <div class="reviews-track" role="list" aria-label={lang === 'fr' ? 'Avis clients' : 'Client reviews'} data-stagger data-stagger-delay="0.12">
         {sorted.map((t) => (
-          <div class="review-card" role="listitem">
+          <div class="review-card" role="listitem" data-stagger-child>
             <!-- Stars -->
             <div class="stars" aria-label="5 étoiles">
               {[...Array(5)].map(() => (

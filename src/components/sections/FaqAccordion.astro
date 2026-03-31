@@ -24,7 +24,7 @@ const ctaLink = lang === 'fr' ? 'Contactez-nous' : 'Contact us';
 
   <div class="faq-inner">
     <!-- Header -->
-    <div class="faq-header">
+    <div class="faq-header" data-reveal>
       <p class="section-tag">{tag}</p>
       <h2 id="faq-heading" class="faq-heading" set:html={heading}></h2>
       <p class="faq-sub">
@@ -35,12 +35,12 @@ const ctaLink = lang === 'fr' ? 'Contactez-nous' : 'Contact us';
     </div>
 
     <!-- Accordion list -->
-    <div class="faq-list" role="list">
+    <div class="faq-list" role="list" data-stagger data-stagger-delay="0.07">
       {sorted.map((item, i) => (
         <details
           class="faq-item"
           role="listitem"
-          style={`animation-delay: ${i * 0.07}s`}
+          data-stagger-child
         >
           <summary class="faq-question">
             <span class="question-text">{item.question}</span>
@@ -125,8 +125,6 @@ const ctaLink = lang === 'fr' ? 'Contactez-nous' : 'Contact us';
     border: 1px solid rgba(var(--color-black-rgb), 0.08);
     border-radius: 16px;
     overflow: hidden;
-    opacity: 0;
-    animation: fadeInUp 0.6s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     transition: background var(--transition-fast), border-color var(--transition-fast), box-shadow var(--transition-fast);
     cursor: pointer;
   }
@@ -207,11 +205,6 @@ const ctaLink = lang === 'fr' ? 'Contactez-nous' : 'Contact us';
     font-weight: 500;
     color: var(--color-text);
     margin: 0;
-  }
-
-  @keyframes fadeInUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to   { opacity: 1; transform: translateY(0); }
   }
 
   @media (min-width: 768px) {

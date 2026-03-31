@@ -22,15 +22,25 @@ const sorted = [...stats].sort((a, b) => a.order - b.order);
       {lang === 'fr' ? 'Nos résultats en chiffres' : 'Our results in numbers'}
     </h2>
 
-    <ul class="stats-list" role="list">
-      {sorted.map((stat, i) => (
-        <li class="stat-item" style={`animation-delay: ${i * 0.12}s`}>
-          <span class="stat-value">{stat.value}</span>
-          <p class="stat-label">{stat.label[lang]}</p>
-          <p class="stat-footnote">{stat.footnote[lang]}</p>
-          {i < sorted.length - 1 && <div class="stat-divider" aria-hidden="true"></div>}
-        </li>
-      ))}
+    <ul class="stats-list" role="list" data-stagger data-stagger-delay="0.15">
+      {sorted.map((stat, i) => {
+        // Parse numeric + suffix for counter
+        const numeric = stat.value.replace(/[^0-9.]/g, '');
+        const suffix  = stat.value.replace(/[0-9.]/g, '');
+        return (
+          <li class="stat-item" data-stagger-child>
+            <span
+              class="stat-value"
+              data-counter
+              data-target={numeric}
+              data-suffix={suffix}
+            >0{suffix}</span>
+            <p class="stat-label">{stat.label[lang]}</p>
+            <p class="stat-footnote">{stat.footnote[lang]}</p>
+            {i < sorted.length - 1 && <div class="stat-divider" aria-hidden="true"></div>}
+          </li>
+        );
+      })}
     </ul>
   </div>
 </section>
@@ -81,8 +91,6 @@ const sorted = [...stats].sort((a, b) => a.order - b.order);
   .stat-item {
     text-align: center;
     position: relative;
-    opacity: 0;
-    animation: statReveal 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   }
 
   .stat-value {
@@ -140,12 +148,4 @@ const sorted = [...stats].sort((a, b) => a.order - b.order);
     }
   }
 
-  @keyframes statReveal {
-    from { opacity: 0; transform: translateY(12px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .stat-item { animation: none; opacity: 1; }
-  }
 </style>

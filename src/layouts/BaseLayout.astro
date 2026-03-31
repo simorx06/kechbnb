@@ -125,9 +125,58 @@ const alternateHref = `${siteUrl.origin}${altPathname}`;
         }
       })();
     </script>
+    <!-- Global animation styles -->
+    <style>
+      /* Base state — hidden before reveal */
+      [data-reveal],
+      [data-stagger-child] {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+                    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+
+      [data-reveal="left"],
+      [data-stagger-child="left"] {
+        transform: translateX(-32px);
+      }
+
+      [data-reveal="right"],
+      [data-stagger-child="right"] {
+        transform: translateX(32px);
+      }
+
+      [data-reveal="scale"],
+      [data-stagger-child="scale"] {
+        transform: scale(0.92);
+      }
+
+      /* Visible state */
+      [data-reveal].is-visible,
+      [data-stagger-child].is-visible {
+        opacity: 1;
+        transform: none;
+      }
+
+      /* Reduced motion: skip all */
+      @media (prefers-reduced-motion: reduce) {
+        [data-reveal],
+        [data-stagger-child] {
+          opacity: 1 !important;
+          transform: none !important;
+          transition: none !important;
+        }
+      }
+    </style>
   </head>
   <body>
     <a href="#main-content" class="skip-link">{currentLang === 'fr' ? 'Aller au contenu principal' : 'Skip to main content'}</a>
     <slot />
+
+    <!-- Global animation init -->
+    <script>
+      import { initAnimations } from '../scripts/animations';
+      document.addEventListener('DOMContentLoaded', initAnimations);
+    </script>
   </body>
 </html>

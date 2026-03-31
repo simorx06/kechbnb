@@ -205,12 +205,36 @@ body {
   transition: all var(--transition-fast);
   box-shadow: 0 4px 20px rgba(var(--color-accent-rgb), 0.3);
   min-height: 52px;
+  position: relative;
+  overflow: hidden;
 }
 
 .btn-primary:hover {
   opacity: 0.88;
   transform: translateY(-1px);
   box-shadow: var(--shadow-accent);
+}
+
+/* Shimmer on primary buttons */
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(120deg, transparent, rgba(255,255,255,0.25), transparent);
+  transform: skewX(-20deg);
+  transition: none;
+  pointer-events: none;
+}
+
+.btn-primary:hover::after {
+  animation: btnShimmer 0.6s ease forwards;
+}
+
+@keyframes btnShimmer {
+  from { left: -75%; }
+  to   { left: 125%; }
 }
 
 .btn-secondary {

@@ -29,20 +29,20 @@ const commissionNote = lang === 'fr'
 <section class="services-section" aria-labelledby="services-heading">
 
   <!-- Header -->
-  <div class="services-header">
+  <div class="services-header" data-reveal>
     <p class="section-tag">{tag}</p>
     <h2 id="services-heading" class="services-heading" set:html={heading}></h2>
     <p class="services-sub">{sub}</p>
   </div>
 
   <!-- Scrollable cards track -->
-  <div class="services-track-wrap" role="list" aria-label={lang === 'fr' ? 'Liste des services' : 'Services list'}>
+  <div class="services-track-wrap" role="list" aria-label={lang === 'fr' ? 'Liste des services' : 'Services list'} data-stagger data-stagger-delay="0.09">
     <div class="services-track">
       {services.map((svc, i) => (
         <article
           class="service-card"
           role="listitem"
-          style={`animation-delay: ${i * 0.09}s`}
+          data-stagger-child
         >
           <!-- Icon -->
           <div class="svc-icon-wrap" aria-hidden="true">
@@ -139,8 +139,6 @@ const commissionNote = lang === 'fr'
     flex-direction: column;
     gap: 1rem;
     overflow: hidden;
-    opacity: 0;
-    animation: cardSlideIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     transition: transform var(--transition-base), box-shadow var(--transition-base);
   }
 
@@ -223,14 +221,8 @@ const commissionNote = lang === 'fr'
     opacity: 0.75;
   }
 
-  @keyframes cardSlideIn {
-    from { opacity: 0; transform: translateY(24px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
   @media (prefers-reduced-motion: reduce) {
-    .service-card { animation: none; opacity: 1; transition: none; }
-    .svc-accent   { transition: none; }
+    .svc-accent { transition: none; }
   }
 
   @media (min-width: 1024px) {

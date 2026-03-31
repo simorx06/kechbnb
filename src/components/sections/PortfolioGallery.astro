@@ -42,19 +42,19 @@ function getRoomLabel(file: string, lang: 'fr' | 'en') {
 <section class="portfolio-section" aria-labelledby="portfolio-heading">
 
   <!-- Header -->
-  <div class="portfolio-header">
+  <div class="portfolio-header" data-reveal>
     <p class="section-tag">{tag}</p>
     <h2 id="portfolio-heading" class="portfolio-heading" set:html={heading}></h2>
     <p class="portfolio-sub">{sub}</p>
   </div>
 
   <!-- Cards grid -->
-  <div class="portfolio-grid" role="list" aria-label={lang === 'fr' ? 'Galerie des réalisations' : 'Portfolio gallery'}>
+  <div class="portfolio-grid" role="list" aria-label={lang === 'fr' ? 'Galerie des réalisations' : 'Portfolio gallery'} data-stagger data-stagger-delay="0.07">
     {sorted.map((item, i) => (
       <figure
         class="portfolio-card"
         role="listitem"
-        style={`animation-delay: ${(i % 3) * 0.1}s`}
+        data-stagger-child
       >
         <!-- Image -->
         <div class="card-img-wrap">
@@ -165,8 +165,6 @@ function getRoomLabel(file: string, lang: 'fr' | 'en') {
     border-radius: var(--radius-card);
     overflow: hidden;
     margin: 0;
-    opacity: 0;
-    animation: cardReveal 0.75s cubic-bezier(0.22, 1, 0.36, 1) forwards;
     cursor: pointer;
   }
 
@@ -285,13 +283,7 @@ function getRoomLabel(file: string, lang: 'fr' | 'en') {
     margin-top: var(--space-m);
   }
 
-  @keyframes cardReveal {
-    from { opacity: 0; transform: translateY(20px); }
-    to   { opacity: 1; transform: translateY(0); }
-  }
-
   @media (prefers-reduced-motion: reduce) {
-    .portfolio-card { animation: none; opacity: 1; transition: none; }
     .card-img, .card-info { transition: none; }
     .portfolio-card:hover .card-img { transform: none; }
   }
